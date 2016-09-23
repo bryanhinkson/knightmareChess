@@ -14,7 +14,7 @@ gen/
 out/
 
 # Gradle files
-.gradle/
+platforms/android/.gradle/
 build/
 
 # Local configuration file (sdk path, etc)
