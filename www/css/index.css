@@ -33,3 +33,14 @@
 .board {
  background-color: blue;
 }
+
+.chessPiece {
+    position: relative;
+    z-index: 2;
+    background-color: inherit;
+    height: 90%;
+    width:90%;
+    margin-top: 5%;
+    margin-left: 5%;
+    
+}

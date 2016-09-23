@@ -21,7 +21,8 @@
             <div class="" ng-repeat="rank in ranks">
                 <div class="row">
                     <div class="" ng-repeat="file in files">
-                        <div id="{{file}}{{8-$parent.$index}}" class="" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+                        <div id="{{file}}{{8-$parent.$index}}" 
+                        ng-click="select($event)" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
                     </div>
                 </div>
             </div>
@@ -35,6 +36,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
+<i>By jurgenwesterhof (adapted from work of Cburnett) - <a class="external free" href="http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces">http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=35634436">https://commons.wikimedia.org/w/index.php?curid=35634436</a></i>
 </body>
 
 </html>
