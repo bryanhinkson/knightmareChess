@@ -8,19 +8,20 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/overrides.css">
     <script type="text/javascript" src="js/angular.min.js"></script>
     <title>Knightmare Chess</title>
 </head>
 
 <body ng-app="knightmareChess" ng-controller="mainController">
-    <div class="container">
+    <div class="container-fluid">
         <h1 class="page-header">Knightmare Chess</h1>
         
         <div class="board">
             <div class="" ng-repeat="rank in ranks">
                 <div class="row">
                     <div class="" ng-repeat="file in files">
-                        <div id="{{file}}{{8-$parent.$index}}" class="" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}">{{file}}{{8-$parent.$index}}</div>
+                        <div id="{{file}}{{8-$parent.$index}}" class="" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
                     </div>
                 </div>
             </div>
@@ -28,7 +29,7 @@
 
         <br />
         <button class="btn btn-success" ng-click="startGame()">Start Game</button>
-        <p>{{test}}</p>
+        <p>{{}}</p>
 
     </div>
     <script type="text/javascript" src="cordova.js"></script>

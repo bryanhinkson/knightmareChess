@@ -1,0 +1,35 @@
+
+* {
+    background-color: #121212;
+    color: white;
+}
+.white {
+    background-color: white;
+    color: black;
+    width: 12.25vw;
+    height: 12.25vw;
+    float:left;
+}
+.white:hover {
+    background-color: lightblue;
+    width: 12.25vw;
+    height: 12.25vw;
+    float:left;
+}
+
+.black {
+    background-color: saddlebrown;
+    width: 12.25vw;
+    height: 12.25vw;
+    float:left;
+}
+.black:hover {
+    background-color: lightblue;
+    width: 12.25vw;
+    height: 12.25vw;
+    float:left;
+}
+
+.board {
+ background-color: blue;
+}
