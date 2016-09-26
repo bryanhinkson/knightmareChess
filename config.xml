@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.knightmarechess.chess" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>KnightmareChess</name>
+<widget id="com.houseRulesChess.chess" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>houseRulesChess</name>
     <description>
-        Knighmare Chess as made in cards by Steve Jackson Games
+        House Rules Chess
     </description>
     <author email="hinksonsoftware@gmail.com">
         Bryan Hinkson

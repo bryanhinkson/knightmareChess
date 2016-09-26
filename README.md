@@ -1,2 +1,2 @@
-# knightmareChess
-Knightmare Chess game based on Steve Jackson card game
+# houseRulesChess
+House Rules Chess

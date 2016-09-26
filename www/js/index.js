@@ -1,4 +1,4 @@
-var app = angular.module("knightmareChess", []);
+var app = angular.module("houseRulesChess", []);
 
 app.controller('mainController', function($scope){
     $scope.ranks = [1,2,3,4,5,6,7,8];

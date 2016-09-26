@@ -8,7 +8,7 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.knightmarechess.chess"
+            "PACKAGE_NAME": "com.houseRulesChess.chess"
         }
     },
     "dependent_plugins": {}
