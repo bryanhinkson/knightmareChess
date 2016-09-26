@@ -5,7 +5,19 @@ app.controller('mainController', function ($scope) {
     $scope.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
 
-    $scope.startGame = function () {
+    $scope.resetGame = function () {
+        // Clear Board
+        for(var i = 1; i <= 8; i++){
+            document.getElementById('A'+i).innerHTML="";
+            document.getElementById('B'+i).innerHTML="";
+            document.getElementById('C'+i).innerHTML="";
+            document.getElementById('D'+i).innerHTML="";
+            document.getElementById('E'+i).innerHTML="";
+            document.getElementById('F'+i).innerHTML="";
+            document.getElementById('G'+i).innerHTML="";
+            document.getElementById('H'+i).innerHTML="";
+        }
+
         // Set up white
         // Set up white pawns
         var pawns = [document.getElementById('A2'), document.getElementById('B2'), document.getElementById('C2'), document.getElementById('D2'), document.getElementById('E2'), document.getElementById('F2'), document.getElementById('G2'), document.getElementById('H2')];
