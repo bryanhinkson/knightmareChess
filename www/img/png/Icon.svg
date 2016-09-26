@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="Icon.svg">
+   sodipodi:docname="Icon.svg"
+   inkscape:export-filename="/home/bhinkson/android/houseRulesChess/www/img/logo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="-162.55339"
-     inkscape:cy="317.60455"
+     inkscape:cx="601.73232"
+     inkscape:cy="223.31884"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,40 +60,51 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-207.42408,-191.02362)">
-    <rect
-       style="fill:#000000;fill-opacity:1"
-       id="rect4144"
-       width="315.71429"
-       height="88.571426"
-       x="395.71429"
-       y="736.64789" />
-    <ellipse
-       style="fill:#000000;fill-opacity:1"
-       id="path4146"
-       cx="550.71423"
-       cy="578.79077"
-       rx="100.71429"
-       ry="237.85715" />
-    <rect
-       style="fill:#000000;fill-opacity:1"
-       id="rect4148"
-       width="11.428572"
-       height="130"
-       x="545.71423"
-       y="219.50507" />
-    <rect
-       style="fill:#000000;fill-opacity:1"
-       id="rect4150"
-       width="117.14286"
-       height="8.5714283"
-       x="491.42859"
-       y="266.64792" />
-    <rect
-       style="fill:#000000;fill-opacity:1"
-       id="rect4152"
-       width="197.14287"
-       height="172.85715"
-       x="451.78571"
-       y="616.64789" />
+    <circle
+       style="opacity:1;fill:#0064c8;fill-opacity:1"
+       id="path3385"
+       cx="548.13837"
+       cy="531.36664"
+       r="336.42859" />
+    <g
+       id="g3376"
+       transform="matrix(0.5683962,0,0,0.5683962,240.7918,200.45351)"
+       style="fill:#ffffff">
+      <rect
+         y="736.64789"
+         x="395.71429"
+         height="88.571426"
+         width="315.71429"
+         id="rect4144"
+         style="fill:#ffffff;fill-opacity:1" />
+      <ellipse
+         ry="237.85715"
+         rx="100.71429"
+         cy="578.79077"
+         cx="550.71423"
+         id="path4146"
+         style="fill:#ffffff;fill-opacity:1" />
+      <rect
+         y="219.50507"
+         x="545.71423"
+         height="130"
+         width="11.428572"
+         id="rect4148"
+         style="fill:#ffffff;fill-opacity:1" />
+      <rect
+         y="266.64792"
+         x="491.42859"
+         height="8.5714283"
+         width="117.14286"
+         id="rect4150"
+         style="fill:#ffffff;fill-opacity:1" />
+      <rect
+         y="616.64789"
+         x="451.78571"
+         height="172.85715"
+         width="197.14287"
+         id="rect4152"
+         style="fill:#ffffff;fill-opacity:1" />
+    </g>
   </g>
 </svg>
