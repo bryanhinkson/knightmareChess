@@ -1,12 +1,30 @@
 var app = angular.module("houseRulesChess", []);
 
 app.controller('mainController', function ($scope) {
+
     $scope.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     $scope.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
     $scope.moveStack = [];
+    
+    $scope.showStart = true;
+    $scope.toggleStart = function(){
+        $scope.showStart = !$scope.showStart;
+    }
+
+    $scope.showNav = false;
+    $scope.toggleNav = function () {
+        $scope.showNav = !$scope.showNav;
+    }
 
 
-    $scope.resetGame = function () {
+    $scope.resetGame = function (ask = true) {
+        if(ask){
+            if (!confirm("Are you sure you want to reset the board?")) {
+                return;
+            }
+        }
+
+
         // Reset capture stack
         $scope.moveStack = [];
 
@@ -128,14 +146,18 @@ app.controller('mainController', function ($scope) {
     }
 
     $scope.move = function (newLocation, oldLocation) {
-        console.log("Move");
 
         // Change the DOM to move the piece
         $scope.selectedPiece.parentNode.removeChild($scope.selectedPiece);
         $scope.newLocation.appendChild($scope.selectedPiece)
 
         // Keep track of where we moved
-        $scope.moveStack.push([$scope.selectedPiece, oldLocation, newLocation, null]);
+        $scope.moveStack.push({
+            'movedPiece': $scope.selectedPiece,
+            'oldLocation': oldLocation,
+            'newLocation': newLocation,
+            'capturedPiece': null
+        });
 
         // Reset stuff
         $scope.selectedPiece = null;
@@ -152,7 +174,12 @@ app.controller('mainController', function ($scope) {
         $scope.newLocation.appendChild($scope.selectedPiece);
 
         // Keep track of where we are moving
-        $scope.moveStack.push([$scope.selectedPiece, oldLocation, newLocation, capturedPiece]);
+        $scope.moveStack.push({
+            'movedPiece': $scope.selectedPiece,
+            'oldLocation': oldLocation,
+            'newLocation': newLocation,
+            'capturedPiece': capturedPiece
+        });
 
         // Reset stuff
         $scope.selectedPiece = null;
@@ -161,13 +188,18 @@ app.controller('mainController', function ($scope) {
     }
 
     $scope.undo = function () {
-        console.log("Undo Move");
-
-        
-
-        if ($scope.moveStack.length >= 1) {
-            $scope.moveStack.pop();
+        if ($scope.moveStack.length == 0) {
+            return;
         }
+        // Get the last move
+        var move = $scope.moveStack.pop();
+
+        // Put the Pieces back
+        move.newLocation.removeChild(move.movedPiece);
+        if (move.capturedPiece != null) {
+            move.newLocation.appendChild(move.capturedPiece);
+        }
+        move.oldLocation.appendChild(move.movedPiece);
     }
 
 });

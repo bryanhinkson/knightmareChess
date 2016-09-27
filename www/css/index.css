@@ -1,8 +1,30 @@
 
+/* Elements */
 * {
     background-color: #121212;
     color: white;
 }
+
+nav {
+    background-color: lightgray;
+    width: 50vw;
+    height: 75vh;
+    position: absolute;
+    right:5px;
+    top:55px;
+    z-index: 10;
+
+}
+
+nav * {
+    background-color: lightgray;
+    color: black;
+    font-size: 1.25em;
+    margin:5px;
+    padding: 0px
+}
+
+/* Classes */
 .white {
     background-color: white;
     color: black;
@@ -41,6 +63,22 @@
     height: 90%;
     width:90%;
     margin-top: 5%;
-    margin-left: 5%;
-    
+    margin-left: 5%;    
+}
+
+.menuItem * {
+    padding: 15px;
+}
+
+/* ID's */
+
+#menuButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1.5em;
+}
+
+#StartButton {
+    height: 30vh;
 }
