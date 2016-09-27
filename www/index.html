@@ -16,6 +16,13 @@
 <body ng-app="houseRulesChess" ng-controller="mainController">
     <div class="container-fluid">
         <h1 class="page-header">House Rules Chess</h1>
+        <nav>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="credits.html">Credits</a></li>
+            </ul>
+        </nav>
+        <br>
         
         <div class="board">
             <div class="" ng-repeat="rank in ranks">
@@ -27,16 +34,16 @@
                 </div>
             </div>
         </div>
-
+        <br />
+        <button class="btn btn-warning" ng-click="undo()">Undo</button>
         <br />
         <button class="btn btn-success" ng-click="resetGame()">Reset Game</button>
-        <p>{{}}</p>
 
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
-<i>By jurgenwesterhof (adapted from work of Cburnett) - <a class="external free" href="http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces">http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=35634436">https://commons.wikimedia.org/w/index.php?curid=35634436</a></i>
+
 </body>
 
 </html>

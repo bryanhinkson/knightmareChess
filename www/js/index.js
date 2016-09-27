@@ -3,19 +3,23 @@ var app = angular.module("houseRulesChess", []);
 app.controller('mainController', function ($scope) {
     $scope.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     $scope.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    $scope.moveStack = [];
 
 
     $scope.resetGame = function () {
+        // Reset capture stack
+        $scope.moveStack = [];
+
         // Clear Board
-        for(var i = 1; i <= 8; i++){
-            document.getElementById('A'+i).innerHTML="";
-            document.getElementById('B'+i).innerHTML="";
-            document.getElementById('C'+i).innerHTML="";
-            document.getElementById('D'+i).innerHTML="";
-            document.getElementById('E'+i).innerHTML="";
-            document.getElementById('F'+i).innerHTML="";
-            document.getElementById('G'+i).innerHTML="";
-            document.getElementById('H'+i).innerHTML="";
+        for (var i = 1; i <= 8; i++) {
+            document.getElementById('A' + i).innerHTML = "";
+            document.getElementById('B' + i).innerHTML = "";
+            document.getElementById('C' + i).innerHTML = "";
+            document.getElementById('D' + i).innerHTML = "";
+            document.getElementById('E' + i).innerHTML = "";
+            document.getElementById('F' + i).innerHTML = "";
+            document.getElementById('G' + i).innerHTML = "";
+            document.getElementById('H' + i).innerHTML = "";
         }
 
         // Set up white
@@ -83,19 +87,22 @@ app.controller('mainController', function ($scope) {
     }
 
     $scope.select = function (e) {
-        // If a piece is already selected then we will move
+        // If a piece is already selected then we will move or capture
         if ($scope.selectedPiece != null) {
 
+            //If we are moving to a DIV then we don't need to capture
             if (e.target.tagName == "DIV") {
                 $scope.newLocation = e.target;
-                $scope.move($scope.newLocation);
+                $scope.move($scope.newLocation, $scope.selectedPiece.parentNode);
             }
             else if (e.target.tagName == "IMG") {
+                //If we want to move to where there is an IMG then we need to capture
                 $scope.newLocation = e.target.parentNode;
-                $scope.capture($scope.newLocation);
+                // Pass in where we are going and where we came from
+                $scope.capture($scope.newLocation, $scope.selectedPiece.parentNode);
             }
 
-            
+
             return;
         }
 
@@ -120,32 +127,47 @@ app.controller('mainController', function ($scope) {
 
     }
 
-    $scope.move = function (newLocation) {
+    $scope.move = function (newLocation, oldLocation) {
         console.log("Move");
 
+        // Change the DOM to move the piece
         $scope.selectedPiece.parentNode.removeChild($scope.selectedPiece);
         $scope.newLocation.appendChild($scope.selectedPiece)
 
+        // Keep track of where we moved
+        $scope.moveStack.push([$scope.selectedPiece, oldLocation, newLocation, null]);
+
+        // Reset stuff
         $scope.selectedPiece = null;
         $scope.newLocation = null;
         return;
     }
 
-     $scope.capture = function (newLocation) {
-        console.log("Capture");
-        console.log("Selected Piece");
-        console.log($scope.selectedPiece);
-        console.log("newLocation");
-        console.log($scope.newLocation);
+    $scope.capture = function (newLocation, oldLocation) {
 
+        // Change the DOM to Capture the piece
+        var capturedPiece = $scope.newLocation.firstChild;
         $scope.newLocation.removeChild($scope.newLocation.firstChild);
         $scope.selectedPiece.parentNode.removeChild($scope.selectedPiece);
         $scope.newLocation.appendChild($scope.selectedPiece);
-        
 
+        // Keep track of where we are moving
+        $scope.moveStack.push([$scope.selectedPiece, oldLocation, newLocation, capturedPiece]);
+
+        // Reset stuff
         $scope.selectedPiece = null;
         $scope.newLocation = null;
         return;
-     }
+    }
+
+    $scope.undo = function () {
+        console.log("Undo Move");
+
+        
+
+        if ($scope.moveStack.length >= 1) {
+            $scope.moveStack.pop();
+        }
+    }
 
 });
