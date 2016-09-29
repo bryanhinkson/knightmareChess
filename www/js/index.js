@@ -28,6 +28,9 @@ app.controller('mainController', function ($scope) {
         // Reset capture stack
         $scope.moveStack = [];
 
+        // Reset selected piece
+        $scope.selectedPiece = null;
+
         // Clear Board
         for (var i = 1; i <= 8; i++) {
             document.getElementById('A' + i).innerHTML = "";
@@ -108,13 +111,19 @@ app.controller('mainController', function ($scope) {
         // If a piece is already selected then we will move or capture
         if ($scope.selectedPiece != null) {
 
-            //If we are moving to a DIV then we don't need to capture
+            // If we are moving to a DIV then we don't need to capture
             if (e.target.tagName == "DIV") {
                 $scope.newLocation = e.target;
                 $scope.move($scope.newLocation, $scope.selectedPiece.parentNode);
             }
             else if (e.target.tagName == "IMG") {
-                //If we want to move to where there is an IMG then we need to capture
+                // If we select the same piece then don't do anything
+                if(e.target == $scope.selectedPiece){
+                    console.log("You selected the same piece");
+                    return;
+                }
+
+                // If we want to move to where there is an IMG then we need to capture
                 $scope.newLocation = e.target.parentNode;
                 // Pass in where we are going and where we came from
                 $scope.capture($scope.newLocation, $scope.selectedPiece.parentNode);
