@@ -30,7 +30,7 @@ app.controller('boardController', function ($route, $routeParams, $location) {
     vm.showStart = true;
     vm.toggleStart = function(){        
         vm.showStart = !vm.showStart;
-    }   
+    }
 
     vm.showPiecePallet = false;
     vm.togglePiecePallet = function(){
