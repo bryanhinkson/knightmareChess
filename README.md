@@ -11,8 +11,6 @@ This allows you to augment the game of chess in anyway that you wish without the
 
 What is coming:
 
-    - Ability to undo
-    - A stack of the moves that have been played
     - A piece picker
     - Cards that alter the way pieces move
     - Network / online play
