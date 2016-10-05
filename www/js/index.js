@@ -7,13 +7,23 @@ app.controller('mainController', function ($scope) {
     $scope.moveStack = [];
     
     $scope.showStart = true;
-    $scope.toggleStart = function(){
+    $scope.toggleStart = function(){        
         $scope.showStart = !$scope.showStart;
     }
 
     $scope.showNav = false;
-    $scope.toggleNav = function () {
-        $scope.showNav = !$scope.showNav;
+    $scope.toggleNav = function (e, close = false) {
+        e.stopPropagation();
+        if(close == 'keepAlive'){
+            return;
+        }
+        if(close == true){
+            $scope.showNav = false;
+            return;
+        }
+        else{
+            $scope.showNav = !$scope.showNav;
+        }        
     }
 
 

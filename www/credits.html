@@ -14,16 +14,16 @@
     <title>Credits</title>
 </head>
 
-<body ng-app="houseRulesChess" ng-controller="mainController">
+<body ng-app="houseRulesChess" ng-controller="mainController" ng-click="toggleNav($event, true)">
     <div class="container-fluid">
         <div class="row">
             <h3 class="col-xs-8">House Rules Chess</h3>
-            <button id="menuButton" type="button" class="btn btn-default col-xs-offset-2 col-xs-2" ng-click="toggleNav()">
+            <button id="menuButton" type="button" class="btn btn-default col-xs-offset-2 col-xs-2" ng-click="toggleNav($event)">
                 <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
         </div>
 
-        <nav ng-show="showNav">
+        <nav ng-show="showNav" ng-click="toggleNav($event, 'keepAlive')">
             <ul class="nav nav-nav-pills nav-stacked">
                 <li><a href="index.html" class="btn btn-default">Home</a></li>
                 <li><a href="board.html" class="btn btn-default">Play Game</a></li>

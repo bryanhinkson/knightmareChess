@@ -5,14 +5,21 @@
     color: white;
 }
 
+body {
+    height: 100vh;
+    background-color: #121212;
+    color: white;
+}
+
 nav {
     background-color: lightgray;
     width: 50vw;
-    height: 75vh;
+    padding: 50px 30px;
     position: absolute;
     right:5px;
-    top:55px;
+    top:50px;
     z-index: 10;
+    border-radius: 15px;
 
 }
 
@@ -20,8 +27,7 @@ nav * {
     background-color: lightgray;
     color: black;
     font-size: 1.25em;
-    margin:5px;
-    padding: 0px
+    padding: 5px
 }
 
 /* Classes */
