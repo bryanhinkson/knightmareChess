@@ -1,61 +1,13 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/overrides.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <title>House Rules Chess</title>
-</head>
-
-<body ng-app="houseRulesChess" ng-controller="mainController" ng-click="toggleNav($event, true)">
-    <div class="container-fluid">
-        <div class="row">
-            <h3 class="col-xs-8">House Rules Chess</h3>
-            <button id="menuButton" type="button" class="btn btn-default col-xs-offset-2 col-xs-2" ng-click="toggleNav($event)">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>
-        </div>
-
-
-        <nav ng-show="showNav" ng-click="toggleNav($event, 'keepAlive')">
-            <ul class="nav nav-nav-pills nav-stacked">
-                <li><a href="index.html" class="btn btn-default">Home</a></li>
-                <li><a href="board.html" class="btn btn-default">Play Game</a></li>
-                <li><a href="credits.html" class="btn btn-default">Credits</a></li>
-                <li><button class="btn btn-danger col-xs-12" ng-click="resetGame()">Reset Board</button></li>
-            </ul>
-        </nav>
-
-
-
-        <br>
 
         <div class="board">
-            <div class="" ng-repeat="rank in ranks">
+            <div class="" ng-repeat="rank in main.ranks">
                 <div class="row">
-                    <div class="" ng-repeat="file in files">
-                        <div id="{{file}}{{8-$parent.$index}}" ng-click="select($event)" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+                    <div class="" ng-repeat="file in main.files">
+                        <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event)" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
                     </div>
                 </div>
             </div>
         </div>
         <br />
-        <button class="btn btn-lg btn-warning" ng-click="undo()">Undo</button>
-        <button style="float: right;" class="btn btn-lg btn-success" ng-show="showStart" ng-click="resetGame(false); toggleStart()">Start Game</button>
-
-
-    </div>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-
-
-</body>
-
-</html>
+        <button class="btn btn-lg btn-warning" ng-click="main.undo()">Undo</button>
+        <button style="float: right;" class="btn btn-lg btn-success" ng-show="main.showStart" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>

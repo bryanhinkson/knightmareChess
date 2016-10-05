@@ -1,15 +1,28 @@
-var app = angular.module("houseRulesChess", []);
+var app = angular.module("houseRulesChess", ['ngRoute']);
 
-app.controller('mainController', function ($scope) {
+app.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
+    $routeProvider
+      .when('/board', {
+        templateUrl: 'board.html',
+        controller: 'mainController',
+        controllerAs: 'main'
+      })
+      .when('/credits', {
+        templateUrl: 'credits.html',
+        controller: 'mainController',
+        controllerAs: 'main'
+      })
+      .otherwise({
+          templateUrl: 'home.html',
+          controller: 'mainController',
+          controllerAs: 'main'
+      });
+}]);
 
-    $scope.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
-    $scope.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-    $scope.moveStack = [];
-    
-    $scope.showStart = true;
-    $scope.toggleStart = function(){        
-        $scope.showStart = !$scope.showStart;
-    }
+app.controller('mainController', function ($scope, $route, $routeParams, $location) {
+
+    // Main elements
 
     $scope.showNav = false;
     $scope.toggleNav = function (e, close = false) {
@@ -26,8 +39,23 @@ app.controller('mainController', function ($scope) {
         }        
     }
 
+    // Board elements
 
-    $scope.resetGame = function (ask = true) {
+    var vm = this;
+
+    vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
+    vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    vm.moveStack = [];
+    
+    vm.showStart = true;
+    vm.toggleStart = function(){        
+        vm.showStart = !vm.showStart;
+    }
+
+    
+
+
+    vm.resetGame = function (ask = true) {
         if(ask){
             if (!confirm("Are you sure you want to reset the board?")) {
                 return;
@@ -36,10 +64,10 @@ app.controller('mainController', function ($scope) {
 
 
         // Reset capture stack
-        $scope.moveStack = [];
+        vm.moveStack = [];
 
         // Reset selected piece
-        $scope.selectedPiece = null;
+        vm.selectedPiece = null;
 
         // Clear Board
         for (var i = 1; i <= 8; i++) {
@@ -117,26 +145,25 @@ app.controller('mainController', function ($scope) {
 
     }
 
-    $scope.select = function (e) {
+    vm.select = function (e) {
         // If a piece is already selected then we will move or capture
-        if ($scope.selectedPiece != null) {
+        if (vm.selectedPiece != null) {
 
             // If we are moving to a DIV then we don't need to capture
             if (e.target.tagName == "DIV") {
-                $scope.newLocation = e.target;
-                $scope.move($scope.newLocation, $scope.selectedPiece.parentNode);
+                vm.newLocation = e.target;
+                vm.move(vm.newLocation, vm.selectedPiece.parentNode);
             }
             else if (e.target.tagName == "IMG") {
                 // If we select the same piece then don't do anything
-                if(e.target == $scope.selectedPiece){
-                    console.log("You selected the same piece");
+                if(e.target == vm.selectedPiece){
                     return;
                 }
 
                 // If we want to move to where there is an IMG then we need to capture
-                $scope.newLocation = e.target.parentNode;
+                vm.newLocation = e.target.parentNode;
                 // Pass in where we are going and where we came from
-                $scope.capture($scope.newLocation, $scope.selectedPiece.parentNode);
+                vm.capture(vm.newLocation, vm.selectedPiece.parentNode);
             }
 
 
@@ -145,73 +172,70 @@ app.controller('mainController', function ($scope) {
 
         if (e.target.children.length == 0) {
             if (e.target.tagName == "IMG") {
-                $scope.selectedPiece = e.target;
+                vm.selectedPiece = e.target;
             }
             else {
-                $scope.selectedPiece = null;
+                vm.selectedPiece = null;
             }
         }
         else {
             if (e.target.firstChild.tagName == "IMG") {
-                $scope.selectedPiece = e.target.firstChild;
+                vm.selectedPiece = e.target.firstChild;
             }
             else {
-                $scope.selectedPiece = null;
+                vm.selectedPiece = null;
             }
         }
-        console.log($scope.selectedPiece);
-
-
     }
 
-    $scope.move = function (newLocation, oldLocation) {
+    vm.move = function (newLocation, oldLocation) {
 
         // Change the DOM to move the piece
-        $scope.selectedPiece.parentNode.removeChild($scope.selectedPiece);
-        $scope.newLocation.appendChild($scope.selectedPiece)
+        vm.selectedPiece.parentNode.removeChild(vm.selectedPiece);
+        vm.newLocation.appendChild(vm.selectedPiece)
 
         // Keep track of where we moved
-        $scope.moveStack.push({
-            'movedPiece': $scope.selectedPiece,
+        vm.moveStack.push({
+            'movedPiece': vm.selectedPiece,
             'oldLocation': oldLocation,
             'newLocation': newLocation,
             'capturedPiece': null
         });
 
         // Reset stuff
-        $scope.selectedPiece = null;
-        $scope.newLocation = null;
+        vm.selectedPiece = null;
+        vm.newLocation = null;
         return;
     }
 
-    $scope.capture = function (newLocation, oldLocation) {
+    vm.capture = function (newLocation, oldLocation) {
 
         // Change the DOM to Capture the piece
-        var capturedPiece = $scope.newLocation.firstChild;
-        $scope.newLocation.removeChild($scope.newLocation.firstChild);
-        $scope.selectedPiece.parentNode.removeChild($scope.selectedPiece);
-        $scope.newLocation.appendChild($scope.selectedPiece);
+        var capturedPiece = vm.newLocation.firstChild;
+        vm.newLocation.removeChild(vm.newLocation.firstChild);
+        vm.selectedPiece.parentNode.removeChild(vm.selectedPiece);
+        vm.newLocation.appendChild(vm.selectedPiece);
 
         // Keep track of where we are moving
-        $scope.moveStack.push({
-            'movedPiece': $scope.selectedPiece,
+        vm.moveStack.push({
+            'movedPiece': vm.selectedPiece,
             'oldLocation': oldLocation,
             'newLocation': newLocation,
             'capturedPiece': capturedPiece
         });
 
         // Reset stuff
-        $scope.selectedPiece = null;
-        $scope.newLocation = null;
+        vm.selectedPiece = null;
+        vm.newLocation = null;
         return;
     }
 
-    $scope.undo = function () {
-        if ($scope.moveStack.length == 0) {
+    vm.undo = function () {
+        if (vm.moveStack.length == 0) {
             return;
         }
         // Get the last move
-        var move = $scope.moveStack.pop();
+        var move = vm.moveStack.pop();
 
         // Put the Pieces back
         move.newLocation.removeChild(move.movedPiece);
@@ -222,3 +246,4 @@ app.controller('mainController', function ($scope) {
     }
 
 });
+

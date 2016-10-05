@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/overrides.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route/angular-route.min.js"></script>
     <title>House Rules Chess</title>
 </head>
 
@@ -25,19 +26,21 @@
 
         <nav ng-show="showNav" ng-click="toggleNav($event, 'keepAlive')">
             <ul class="nav nav-nav-pills nav-stacked">
-                <li><a href="index.html" class="btn btn-default">Home</a></li>
-                <li><a href="board.html" class="btn btn-default">Play Game</a></li>
-                <li><a href="credits.html" class="btn btn-default">Credits</a></li>
+                <li><a href="#/index" class="btn btn-default">Home</a></li>
+                <li><a href="#/board" class="btn btn-default">Play Game</a></li>
+                <li><a href="#/credits" class="btn btn-default">Credits</a></li>
             </ul>
         </nav>
 
-        <br><br><br>
+
+        <div ng-view></div>
+
         
-        <a href="board.html"><button id="StartButton" class="btn btn-lg btn-success col-xs-8 col-xs-offset-2">New Game!</button></a>
+        
 
     </div>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
 
 
 </body>
