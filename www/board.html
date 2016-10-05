@@ -1,13 +1,38 @@
+<div class="board">
+    <div class="" ng-repeat="rank in main.ranks">
+        <div class="row">
+            <div class="" ng-repeat="file in main.files">
+                <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event)" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <div class="board">
-            <div class="" ng-repeat="rank in main.ranks">
-                <div class="row">
-                    <div class="" ng-repeat="file in main.files">
-                        <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event)" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
-                    </div>
+<br>
+
+<div class="row">
+    <button class="btn btn-lg btn-warning col-xs-2" ng-click="main.undo()">Undo</button>
+    <button class="btn btn-lg btn-primary col-xs-4 col-xs-offset-2" ng-click="main.togglePiecePallet()">Piece Pallet</button>
+    <button class="btn btn-lg btn-success col-xs-2 col-xs-offset-2" ng-show="main.showStart" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
+</div>
+
+<div class="row" ng-show="main.showPiecePallet">
+    <hr>
+    <div class="palletContainer">
+        <div class="row">
+            <div class="col-xs-offset-">
+                <div class="piecePalletCell" ng-repeat="piece in main.whitePalletCells">
+                    <img class="chessPiece" type="{{piece.type}}" ng-src="img/{{piece.image}}">
                 </div>
             </div>
         </div>
-        <br />
-        <button class="btn btn-lg btn-warning" ng-click="main.undo()">Undo</button>
-        <button style="float: right;" class="btn btn-lg btn-success" ng-show="main.showStart" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
+        <div class="row">
+            <div class="col-xs-offset-">
+                <div class="piecePalletCell" ng-repeat="piece in main.blackPalletCells">
+                    <img class="chessPiece" type="{{piece.type}}" ng-src="img/{{piece.image}}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

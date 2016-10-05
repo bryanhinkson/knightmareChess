@@ -8,12 +8,34 @@ app.controller('boardController', function ($route, $routeParams, $location) {
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+    vm.whitePalletCells = [
+        {'type':'White-Pawn', 'image': 'whitePawn.svg'},
+        {'type':'White-Rook', 'image': 'whiteRook.svg'},
+        {'type':'White-Knight', 'image': 'whiteKnight.svg'},
+        {'type':'White-Bishop', 'image': 'whiteBishop.svg'},
+        {'type':'White-King', 'image': 'whiteKing.svg'},
+        {'type':'White-Queen', 'image': 'whiteQueen.svg'}];
+
+    vm.blackPalletCells = [
+        {'type':'Black-Pawn', 'image': 'blackPawn.svg'},
+        {'type':'Black-Rook', 'image': 'blackRook.svg'},
+        {'type':'Black-Knight', 'image': 'blackKnight.svg'},
+        {'type':'Black-Bishop', 'image': 'blackBishop.svg'},
+        {'type':'Black-King', 'image': 'blackKing.svg'},
+        {'type':'Black-Queen', 'image': 'blackQueen.svg'}];
+
     vm.moveStack = [];
     
     vm.showStart = true;
     vm.toggleStart = function(){        
         vm.showStart = !vm.showStart;
     }   
+
+    vm.showPiecePallet = false;
+    vm.togglePiecePallet = function(){
+        vm.showPiecePallet = !vm.showPiecePallet;
+    }
 
 
     vm.resetGame = function (ask = true) {
@@ -22,7 +44,6 @@ app.controller('boardController', function ($route, $routeParams, $location) {
                 return;
             }
         }
-
 
         // Reset capture stack
         vm.moveStack = [];
@@ -46,67 +67,70 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         // Set up white pawns
         var pawns = [document.getElementById('A2'), document.getElementById('B2'), document.getElementById('C2'), document.getElementById('D2'), document.getElementById('E2'), document.getElementById('F2'), document.getElementById('G2'), document.getElementById('H2')];
         for (var i = 0; i < pawns.length; i++) {
-            pawns[i].innerHTML = '<img class="chessPiece" src="img/whitePawn.svg">';
+            pawns[i].innerHTML = '<img type="White-Pawn" class="chessPiece" src="img/whitePawn.svg">';
         }
 
         // Set up white Rooks
         var rooks = [document.getElementById('A1'), document.getElementById('H1')];
         for (var i = 0; i < rooks.length; i++) {
-            rooks[i].innerHTML = '<img class="chessPiece" src="img/whiteRook.svg">';
+            rooks[i].innerHTML = '<img <img type="White-Rook" class="chessPiece" src="img/whiteRook.svg">';
         }
 
         // Set up white Knights
         var Knights = [document.getElementById('B1'), document.getElementById('G1')];
         for (var i = 0; i < Knights.length; i++) {
-            Knights[i].innerHTML = '<img class="chessPiece" src="img/whiteKnight.svg">';
+            Knights[i].innerHTML = '<img <img type="White-Knight" class="chessPiece" src="img/whiteKnight.svg">';
         }
 
         // Set up white Bishops
         var Bishops = [document.getElementById('C1'), document.getElementById('F1')];
         for (var i = 0; i < Bishops.length; i++) {
-            Bishops[i].innerHTML = '<img class="chessPiece" src="img/whiteBishop.svg">';
+            Bishops[i].innerHTML = '<img <img type="White-Bishop" class="chessPiece" src="img/whiteBishop.svg">';
         }
 
         // Set up white King
-        document.getElementById('E1').innerHTML = '<img class="chessPiece" src="img/whiteKing.svg">';
+        document.getElementById('E1').innerHTML = '<img <img type="White-King" class="chessPiece" src="img/whiteKing.svg">';
 
         // Set up white Queen
-        document.getElementById('D1').innerHTML = '<img class="chessPiece" src="img/whiteQueen.svg">';
+        document.getElementById('D1').innerHTML = '<img <img type="White-Queen" class="chessPiece" src="img/whiteQueen.svg">';
 
         // Set up Black
         // Set up Black pawns
         var pawns = [document.getElementById('A7'), document.getElementById('B7'), document.getElementById('C7'), document.getElementById('D7'), document.getElementById('E7'), document.getElementById('F7'), document.getElementById('G7'), document.getElementById('H7')];
         for (var i = 0; i < pawns.length; i++) {
-            pawns[i].innerHTML = '<img class="chessPiece" src="img/blackPawn.svg">';
+            pawns[i].innerHTML = '<img <img type="Black-Pawn" class="chessPiece" src="img/blackPawn.svg">';
         }
 
         // Set up Black Rooks
         var rooks = [document.getElementById('A8'), document.getElementById('H8')];
         for (var i = 0; i < rooks.length; i++) {
-            rooks[i].innerHTML = '<img class="chessPiece" src="img/blackRook.svg">';
+            rooks[i].innerHTML = '<img type="Black-Rook" class="chessPiece" src="img/blackRook.svg">';
         }
 
         // Set up Black Knights
         var Knights = [document.getElementById('B8'), document.getElementById('G8')];
         for (var i = 0; i < Knights.length; i++) {
-            Knights[i].innerHTML = '<img class="chessPiece" src="img/blackKnight.svg">';
+            Knights[i].innerHTML = '<img type="Black-Knight" class="chessPiece" src="img/blackKnight.svg">';
         }
 
         // Set up Black Bishops
         var Bishops = [document.getElementById('C8'), document.getElementById('F8')];
         for (var i = 0; i < Bishops.length; i++) {
-            Bishops[i].innerHTML = '<img class="chessPiece" src="img/blackBishop.svg">';
+            Bishops[i].innerHTML = '<img type="Black-Bishop" class="chessPiece" src="img/blackBishop.svg">';
         }
 
         // Set up Black King
-        document.getElementById('E8').innerHTML = '<img class="chessPiece" src="img/blackKing.svg">';
+        document.getElementById('E8').innerHTML = '<img type="Black-King" class="chessPiece" src="img/blackKing.svg">';
 
         // Set up Black Queen
-        document.getElementById('D8').innerHTML = '<img class="chessPiece" src="img/blackQueen.svg">';
+        document.getElementById('D8').innerHTML = '<img type="Black-Queen" class="chessPiece" src="img/blackQueen.svg">';
 
     }
 
     vm.select = function (e) {
+        //This is how we get data for a piece 
+        //console.log(e.target.attributes.type.nodeValue);
+
         // If a piece is already selected then we will move or capture
         if (vm.selectedPiece != null) {
 

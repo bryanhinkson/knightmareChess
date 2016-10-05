@@ -85,3 +85,16 @@ nav * {
 #StartButton {
     height: 30vh;
 }
+
+.piecePalletCell {
+    background-color: lightgray;
+    width: 12.5vw;
+    height: 12.5vw;
+    float:left;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.palletContainer{
+    margin-left:12.5vw;
+}
