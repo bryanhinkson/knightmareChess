@@ -95,6 +95,13 @@ nav * {
     border-radius: 5px;
 }
 
+.piecePalletCell:hover {
+    background-color: lightblue;
+    width: 12.5vw;
+    height: 12.5vw;
+    float:left;
+}
+
 .palletContainer{
     margin-left:12.5vw;
 }

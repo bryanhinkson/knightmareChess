@@ -37,6 +37,12 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         vm.showPiecePallet = !vm.showPiecePallet;
     }
 
+    vm.resetPiecePallet = function(){
+        for(var i = 0; i < 6; i++){
+            document.getElementById('palletPiece-'+vm.whitePalletCells[i].type).innerHTML = '<img class="chessPiece" type="'+vm.whitePalletCells[i].type+'" src="img/'+vm.whitePalletCells[i].image+'">';
+            document.getElementById('palletPiece-'+vm.blackPalletCells[i].type).innerHTML = '<img class="chessPiece" type="'+vm.blackPalletCells[i].type+'" src="img/'+vm.blackPalletCells[i].image+'">';
+        }
+    }
 
     vm.resetGame = function (ask = true) {
         if(ask){
@@ -44,6 +50,8 @@ app.controller('boardController', function ($route, $routeParams, $location) {
                 return;
             }
         }
+
+        vm.resetPiecePallet();
 
         // Reset capture stack
         vm.moveStack = [];
@@ -176,7 +184,6 @@ app.controller('boardController', function ($route, $routeParams, $location) {
     vm.move = function (newLocation, oldLocation) {
 
         // Change the DOM to move the piece
-        vm.selectedPiece.parentNode.removeChild(vm.selectedPiece);
         vm.newLocation.appendChild(vm.selectedPiece)
 
         // Keep track of where we moved
@@ -190,6 +197,7 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         // Reset stuff
         vm.selectedPiece = null;
         vm.newLocation = null;
+        vm.resetPiecePallet();
         return;
     }
 
@@ -198,7 +206,6 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         // Change the DOM to Capture the piece
         var capturedPiece = vm.newLocation.firstChild;
         vm.newLocation.removeChild(vm.newLocation.firstChild);
-        vm.selectedPiece.parentNode.removeChild(vm.selectedPiece);
         vm.newLocation.appendChild(vm.selectedPiece);
 
         // Keep track of where we are moving
@@ -212,6 +219,7 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         // Reset stuff
         vm.selectedPiece = null;
         vm.newLocation = null;
+        vm.resetPiecePallet();
         return;
     }
 
