@@ -44,6 +44,39 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         }
     }
 
+    // CONFIGURATIONS
+    vm.startingBoardConfig = {
+        "A1": "White-Rook",     "A2": "White-Pawn", "A7": "Black-Pawn", "A8": "Black-Rook",
+        "B1": "White-Knight",   "B2": "White-Pawn", "B7": "Black-Pawn", "B8": "Black-Knight",
+        "C1": "White-Bishop",   "C2": "White-Pawn", "C7": "Black-Pawn", "C8": "Black-Bishop",
+        "D1": "White-Queen",    "D2": "White-Pawn", "D7": "Black-Pawn", "D8": "Black-Queen",
+        "E1": "White-King",     "E2": "White-Pawn", "E7": "Black-Pawn", "E8": "Black-King",
+        "F1": "White-Bishop",   "F2": "White-Pawn", "F7": "Black-Pawn", "F8": "Black-Knight",
+        "G1": "White-Knight",   "G2": "White-Pawn", "G7": "Black-Pawn", "G8": "Black-Bishop",
+        "H1": "White-Rook",     "H2": "White-Pawn", "H7": "Black-Pawn", "H8": "Black-Rook"  
+    }
+    vm.testBoardConfig1 = {
+        "A1": "White-Pawn", "A2": "White-Knight","A3": "White-Bishop", "A4": "White-Queen", "A5": "White-King", "A6": "White-Rook",
+        "B1": "Black-Pawn", "B2": "Black-Knight","B3": "Black-Bishop", "B4": "Black-Queen", "B5": "Black-King", "B6": "Black-Rook" 
+    }
+    vm.blankBoardConfig = {
+        "A1": "", "A2": "","A3": "", "A4": "", "A5": "", "A6": "", "A7": "", "A8": "",
+        "B1": "", "B2": "","B3": "", "B4": "", "B5": "", "B6": "", "B7": "", "B8": "",
+        "C1": "", "C2": "","C3": "", "C4": "", "C5": "", "C6": "", "C7": "", "C8": "",
+        "D1": "", "D2": "","D3": "", "D4": "", "D5": "", "D6": "", "D7": "", "D8": "",
+        "E1": "", "E2": "","E3": "", "E4": "", "E5": "", "E6": "", "E7": "", "E8": "",
+        "F1": "", "F2": "","F3": "", "F4": "", "F5": "", "F6": "", "F7": "", "F8": "",
+        "G1": "", "G2": "","G3": "", "G4": "", "G5": "", "G6": "", "G7": "", "G8": "",
+        "H1": "", "H2": "","H3": "", "H4": "", "H5": "", "H6": "", "H7": "", "H8": ""  
+    }
+    // END CONFIGURATIONS
+
+    // Map the piece types to there respective images
+    vm.pieceMap = {
+        "White-Pawn": "whitePawn.svg", "White-Knight": "whiteKnight.svg", "White-Bishop": "whiteBishop.svg", "White-Rook": "whiteRook.svg", "White-King": "whiteKing.svg", "White-Queen": "whiteQueen.svg", 
+        "Black-Pawn": "blackPawn.svg", "Black-Knight": "blackKnight.svg", "Black-Bishop": "blackBishop.svg", "Black-Rook": "blackRook.svg", "Black-King": "blackKing.svg", "Black-Queen": "blackQueen.svg"
+    }
+
     vm.resetGame = function (ask = true) {
         if(ask){
             if (!confirm("Are you sure you want to reset the board?")) {
@@ -53,86 +86,14 @@ app.controller('boardController', function ($route, $routeParams, $location) {
 
         vm.resetPiecePallet();
 
-        // Reset capture stack
         vm.moveStack = [];
 
-        // Reset selected piece
         vm.selectedPiece = null;
 
-        // Clear Board
-        for (var i = 1; i <= 8; i++) {
-            document.getElementById('A' + i).innerHTML = "";
-            document.getElementById('B' + i).innerHTML = "";
-            document.getElementById('C' + i).innerHTML = "";
-            document.getElementById('D' + i).innerHTML = "";
-            document.getElementById('E' + i).innerHTML = "";
-            document.getElementById('F' + i).innerHTML = "";
-            document.getElementById('G' + i).innerHTML = "";
-            document.getElementById('H' + i).innerHTML = "";
-        }
+        vm.clearBoard();
 
-        // Set up white
-        // Set up white pawns
-        var pawns = [document.getElementById('A2'), document.getElementById('B2'), document.getElementById('C2'), document.getElementById('D2'), document.getElementById('E2'), document.getElementById('F2'), document.getElementById('G2'), document.getElementById('H2')];
-        for (var i = 0; i < pawns.length; i++) {
-            pawns[i].innerHTML = '<img type="White-Pawn" class="chessPiece" src="img/whitePawn.svg">';
-        }
-
-        // Set up white Rooks
-        var rooks = [document.getElementById('A1'), document.getElementById('H1')];
-        for (var i = 0; i < rooks.length; i++) {
-            rooks[i].innerHTML = '<img <img type="White-Rook" class="chessPiece" src="img/whiteRook.svg">';
-        }
-
-        // Set up white Knights
-        var Knights = [document.getElementById('B1'), document.getElementById('G1')];
-        for (var i = 0; i < Knights.length; i++) {
-            Knights[i].innerHTML = '<img <img type="White-Knight" class="chessPiece" src="img/whiteKnight.svg">';
-        }
-
-        // Set up white Bishops
-        var Bishops = [document.getElementById('C1'), document.getElementById('F1')];
-        for (var i = 0; i < Bishops.length; i++) {
-            Bishops[i].innerHTML = '<img <img type="White-Bishop" class="chessPiece" src="img/whiteBishop.svg">';
-        }
-
-        // Set up white King
-        document.getElementById('E1').innerHTML = '<img <img type="White-King" class="chessPiece" src="img/whiteKing.svg">';
-
-        // Set up white Queen
-        document.getElementById('D1').innerHTML = '<img <img type="White-Queen" class="chessPiece" src="img/whiteQueen.svg">';
-
-        // Set up Black
-        // Set up Black pawns
-        var pawns = [document.getElementById('A7'), document.getElementById('B7'), document.getElementById('C7'), document.getElementById('D7'), document.getElementById('E7'), document.getElementById('F7'), document.getElementById('G7'), document.getElementById('H7')];
-        for (var i = 0; i < pawns.length; i++) {
-            pawns[i].innerHTML = '<img <img type="Black-Pawn" class="chessPiece" src="img/blackPawn.svg">';
-        }
-
-        // Set up Black Rooks
-        var rooks = [document.getElementById('A8'), document.getElementById('H8')];
-        for (var i = 0; i < rooks.length; i++) {
-            rooks[i].innerHTML = '<img type="Black-Rook" class="chessPiece" src="img/blackRook.svg">';
-        }
-
-        // Set up Black Knights
-        var Knights = [document.getElementById('B8'), document.getElementById('G8')];
-        for (var i = 0; i < Knights.length; i++) {
-            Knights[i].innerHTML = '<img type="Black-Knight" class="chessPiece" src="img/blackKnight.svg">';
-        }
-
-        // Set up Black Bishops
-        var Bishops = [document.getElementById('C8'), document.getElementById('F8')];
-        for (var i = 0; i < Bishops.length; i++) {
-            Bishops[i].innerHTML = '<img type="Black-Bishop" class="chessPiece" src="img/blackBishop.svg">';
-        }
-
-        // Set up Black King
-        document.getElementById('E8').innerHTML = '<img type="Black-King" class="chessPiece" src="img/blackKing.svg">';
-
-        // Set up Black Queen
-        document.getElementById('D8').innerHTML = '<img type="Black-Queen" class="chessPiece" src="img/blackQueen.svg">';
-
+        // Set up Board with the starting JSON config
+        vm.populateJsonBoard(vm.startingBoardConfig);
     }
 
     vm.select = function (e) {
@@ -240,5 +201,31 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         vm.selectedPiece = null;
     }
 
+    vm.makeBoardJson = function(){
+
+    }
+
+    vm.clearBoard = function(){
+        for (var i = 1; i <= 8; i++) {
+            document.getElementById('A' + i).innerHTML = "";
+            document.getElementById('B' + i).innerHTML = "";
+            document.getElementById('C' + i).innerHTML = "";
+            document.getElementById('D' + i).innerHTML = "";
+            document.getElementById('E' + i).innerHTML = "";
+            document.getElementById('F' + i).innerHTML = "";
+            document.getElementById('G' + i).innerHTML = "";
+            document.getElementById('H' + i).innerHTML = "";
+        }
+    }
+
+    vm.boardConfig = vm.testBoardConfig1;
+
+    vm.populateJsonBoard = function(boardConfig = vm.boardConfig){
+        vm.clearBoard();
+        for(var square in boardConfig){
+            var pieceType = boardConfig[square];
+            document.getElementById(square).innerHTML = '<img type="' + boardConfig.square + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
+        }
+    }
 });
 
