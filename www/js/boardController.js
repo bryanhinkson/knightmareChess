@@ -69,6 +69,7 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         "G1": "", "G2": "","G3": "", "G4": "", "G5": "", "G6": "", "G7": "", "G8": "",
         "H1": "", "H2": "","H3": "", "H4": "", "H5": "", "H6": "", "H7": "", "H8": ""  
     }
+    vm.boardConfig = vm.testBoardConfig1;
     // END CONFIGURATIONS
 
     // Map the piece types to there respective images
@@ -201,11 +202,7 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         vm.selectedPiece = null;
     }
 
-    vm.makeBoardJson = function(){
-
-    }
-
-    vm.clearBoard = function(){
+     vm.clearBoard = function(){
         for (var i = 1; i <= 8; i++) {
             document.getElementById('A' + i).innerHTML = "";
             document.getElementById('B' + i).innerHTML = "";
@@ -218,13 +215,28 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         }
     }
 
-    vm.boardConfig = vm.testBoardConfig1;
+    vm.makeBoardJson = function(){
+        // Get snapshot of board and make a JSON board config out of it
+        vm.boardConfig = {};
+
+        /*  
+            The logic here is if there is something in the divs 
+            then it is a piece so we need to record it
+        */
+        for (var i = 1; i <= 8; i++) {
+            for(var j = 0; j < 8; j++){
+                if(document.getElementById(vm.files[j] + i).innerHTML){
+                    vm.boardConfig[vm.files[j]+i] = document.getElementById(vm.files[j] + i).firstChild.getAttribute('type');                    
+                }
+            }            
+        }
+    }   
 
     vm.populateJsonBoard = function(boardConfig = vm.boardConfig){
         vm.clearBoard();
         for(var square in boardConfig){
             var pieceType = boardConfig[square];
-            document.getElementById(square).innerHTML = '<img type="' + boardConfig.square + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
+            document.getElementById(square).innerHTML = '<img type="' + pieceType + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
         }
     }
 });

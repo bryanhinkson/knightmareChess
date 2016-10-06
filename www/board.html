@@ -2,7 +2,7 @@
     <div class="" ng-repeat="rank in main.ranks">
         <div class="row">
             <div class="" ng-repeat="file in main.files">
-                <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event)" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+                <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event); main.makeBoardJson();" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
             </div>
         </div>
     </div>
