@@ -236,6 +236,8 @@ app.controller('boardController', function ($route, $routeParams, $location) {
             move.newLocation.appendChild(move.capturedPiece);
         }
         move.oldLocation.appendChild(move.movedPiece);
+
+        vm.selectedPiece = null;
     }
 
 });
