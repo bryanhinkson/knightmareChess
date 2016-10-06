@@ -219,10 +219,7 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         // Get snapshot of board and make a JSON board config out of it
         vm.boardConfig = {};
 
-        /*  
-            The logic here is if there is something in the divs 
-            then it is a piece so we need to record it
-        */
+        //if something in the divs then it is a piece so we need to record it
         for (var i = 1; i <= 8; i++) {
             for(var j = 0; j < 8; j++){
                 if(document.getElementById(vm.files[j] + i).innerHTML){
