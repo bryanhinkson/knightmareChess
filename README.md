@@ -12,7 +12,6 @@ This also allows you to augment the game of chess in anyway that you wish withou
 Todo:
 
     functionality:
-        - A piece picker (for promotions etc)
         - Network / online play
     
     Expansions:
