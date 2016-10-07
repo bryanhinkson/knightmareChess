@@ -6,8 +6,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     var vm = this;
 
-    vm.playerMe = "Bryan";
-    vm.playerOpponent = "Tyler";
+    vm.playerMe = "";
+    vm.playerOpponent = "";
 
     vm.playerTurn = vm.playerMe;
 
@@ -252,7 +252,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             params: {"data": {
                 "player1": vm.playerMe,
                 "player2": vm.playerOpponent,
-                "playerTurn": vm.playerMe,
+                "playerTurn": vm.playerOpponent,
                 "game": JSON.stringify(vm.boardConfig)                
                 }
             }
@@ -261,7 +261,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                 alert("An error occured, we were not able to record that move");
             }
         });
-        //vm.playerTurn = vm.playerOpponent;
+        vm.playerTurn = vm.playerOpponent;
 
     }
 
@@ -277,8 +277,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                 }
             }
         }).then(function(response){
-            console.log(response.data);
-            if(response.data.playerTurn == vm.playerMe){                
+            if(response.data.playerTurn == vm.playerMe){             
+                vm.playerTurn = response.data.playerTurn;   
                 vm.populateJsonBoard(JSON.parse(response.data.game));
             }
             else{
