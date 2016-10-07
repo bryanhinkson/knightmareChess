@@ -164,7 +164,6 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         vm.newLocation = null;
         vm.resetPiecePallet();
         vm.makeBoardJson();
-        vm.sendMovesToServer();
         return;
     }
 
@@ -188,7 +187,6 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         vm.newLocation = null;
         vm.resetPiecePallet();
         vm.makeBoardJson();
-        vm.sendMovesToServer();
         return;
     }
 
@@ -247,7 +245,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.sendMovesToServer = function(){
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/test.php",
+            url: "http://chess.hinksonhosting.com/getGame.php",
             //url: "http://localhost/houseRulesChessBackend/getGame.php",
             params: {"data": {
                 "player1": vm.player1,
@@ -265,7 +263,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.getServerMoves = function(){
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/test.php",
+            url: "http://chess.hinksonhosting.com/sendGame.php",
             //url: "http://localhost/houseRulesChessBackend/sendGame.php",
             params: {
                 "data": {

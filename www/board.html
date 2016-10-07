@@ -10,19 +10,16 @@
 
 <br>
 
-<div>
+<div class="row">
     <button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="main.undo()">Undo</button>
     <button class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 boardButton" ng-click="main.togglePiecePallet()">Piece Pallet</button>
     <button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-hide="main.showStart" ng-click="main.resetGame();">Reset Game</button>
     <button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="main.showStart" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
 </div>
-<button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="main.getServerMoves()">getServerMoves</button>
 
-
-<br><br>
+<hr>
 
 <div ng-show="main.showPiecePallet">
-    <br>
     <div class="palletContainer">
         <div class="row">
             <div class="piecePalletCell" id="palletPiece-{{piece.type}}" ng-repeat="piece in main.whitePalletCells" ng-click="main.select($event)">
@@ -37,3 +34,9 @@
     </div>
     <hr>
 </div>
+
+<div class="row">
+    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.getServerMoves()">Check Server</button>
+    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-click="main.sendMovesToServer()">End Turn</button>
+</div>
+<hr>
