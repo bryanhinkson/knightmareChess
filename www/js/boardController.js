@@ -6,8 +6,10 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     var vm = this;
 
-    vm.player1 = "me";
-    vm.player2 = "you";
+    vm.playerMe = "Bryan";
+    vm.playerOpponent = "Tyler";
+
+    vm.playerTurn = vm.playerMe;
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -245,12 +247,13 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.sendMovesToServer = function(){
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/getGame.php",
-            //url: "http://localhost/houseRulesChessBackend/getGame.php",
+            url: "http://chess.hinksonhosting.com/saveGame.php",
+            //url: "http://localhost/houseRulesChessBackend/saveGame.php",
             params: {"data": {
-                "player1": vm.player1,
-                "player2": vm.player2,
-                "game": JSON.stringify(vm.boardConfig)
+                "player1": vm.playerMe,
+                "player2": vm.playerOpponent,
+                "playerTurn": vm.playerMe,
+                "game": JSON.stringify(vm.boardConfig)                
                 }
             }
         }).then(function(response){
@@ -258,21 +261,29 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                 alert("An error occured, we were not able to record that move");
             }
         });
+        //vm.playerTurn = vm.playerOpponent;
+
     }
 
     vm.getServerMoves = function(){
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/sendGame.php",
-            //url: "http://localhost/houseRulesChessBackend/sendGame.php",
+            url: "http://chess.hinksonhosting.com/loadGame.php",
+            //url: "http://localhost/houseRulesChessBackend/loadGame.php",
             params: {
                 "data": {
-                    "player1": vm.player1,
-                    "player2": vm.player2,
+                    "player1": vm.playerMe,
+                    "player2": vm.playerOpponent,
                 }
             }
         }).then(function(response){
-            vm.populateJsonBoard(response.data);
+            console.log(response.data);
+            if(response.data.playerTurn == vm.playerMe){                
+                vm.populateJsonBoard(JSON.parse(response.data.game));
+            }
+            else{
+                alert("They haven't moved yet");
+            }
         });
         
     }
