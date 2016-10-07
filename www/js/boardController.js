@@ -247,8 +247,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.sendMovesToServer = function(){
         $http({
             method: "GET",
-            //url: "http://chess.hinksonhosting.com/test.php"
-            url: "http://localhost/houseRulesChessBackend/getGame.php",
+            url: "http://chess.hinksonhosting.com/test.php",
+            //url: "http://localhost/houseRulesChessBackend/getGame.php",
             params: {"data": {
                 "player1": vm.player1,
                 "player2": vm.player2,
@@ -265,8 +265,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.getServerMoves = function(){
         $http({
             method: "GET",
-            //url: "http://chess.hinksonhosting.com/test.php"
-            url: "http://localhost/houseRulesChessBackend/sendGame.php",
+            url: "http://chess.hinksonhosting.com/test.php",
+            //url: "http://localhost/houseRulesChessBackend/sendGame.php",
             params: {
                 "data": {
                     "player1": vm.player1,
