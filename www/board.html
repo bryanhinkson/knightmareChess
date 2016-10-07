@@ -2,7 +2,7 @@
     <div class="" ng-repeat="rank in main.ranks">
         <div class="row">
             <div class="" ng-repeat="file in main.files">
-                <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event); main.makeBoardJson();" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+                <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event);" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
             </div>
         </div>
     </div>
@@ -16,6 +16,8 @@
     <button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-hide="main.showStart" ng-click="main.resetGame();">Reset Game</button>
     <button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="main.showStart" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
 </div>
+<button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="main.getServerMoves()">getServerMoves</button>
+
 
 <br><br>
 

@@ -1,10 +1,13 @@
 var app = angular.module("houseRulesChess");
 
-app.controller('boardController', function ($route, $routeParams, $location) {
+app.controller('boardController', function ($route, $routeParams, $location, $http) {
 
     // Board elements
 
     var vm = this;
+
+    vm.player1 = "me";
+    vm.player2 = "you";
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -160,6 +163,8 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         vm.selectedPiece = null;
         vm.newLocation = null;
         vm.resetPiecePallet();
+        vm.makeBoardJson();
+        vm.sendMovesToServer();
         return;
     }
 
@@ -182,6 +187,8 @@ app.controller('boardController', function ($route, $routeParams, $location) {
         vm.selectedPiece = null;
         vm.newLocation = null;
         vm.resetPiecePallet();
+        vm.makeBoardJson();
+        vm.sendMovesToServer();
         return;
     }
 
@@ -235,6 +242,41 @@ app.controller('boardController', function ($route, $routeParams, $location) {
             var pieceType = boardConfig[square];
             document.getElementById(square).innerHTML = '<img type="' + pieceType + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
         }
+    }
+
+    vm.sendMovesToServer = function(){
+        $http({
+            method: "GET",
+            //url: "http://chess.hinksonhosting.com/test.php"
+            url: "http://localhost/houseRulesChessBackend/getGame.php",
+            params: {"data": {
+                "player1": vm.player1,
+                "player2": vm.player2,
+                "game": JSON.stringify(vm.boardConfig)
+                }
+            }
+        }).then(function(response){
+            if(!response.data){
+                alert("An error occured, we were not able to record that move");
+            }
+        });
+    }
+
+    vm.getServerMoves = function(){
+        $http({
+            method: "GET",
+            //url: "http://chess.hinksonhosting.com/test.php"
+            url: "http://localhost/houseRulesChessBackend/sendGame.php",
+            params: {
+                "data": {
+                    "player1": vm.player1,
+                    "player2": vm.player2,
+                }
+            }
+        }).then(function(response){
+            vm.populateJsonBoard(response.data);
+        });
+        
     }
 });
 
