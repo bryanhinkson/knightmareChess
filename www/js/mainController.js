@@ -62,7 +62,6 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
                 }
             }
         }).then(function (response) {
-            console.log(response.data);  
             if(response.data.loginSuccess === true){
                $location.path("/board/"+response.data.username);
             }              
