@@ -6,85 +6,91 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     var vm = this;
 
-    vm.playerMe = "";
+    vm.user = $routeParams.username;
+
+    vm.playerMe = vm.user;
     vm.playerOpponent = "";
 
     vm.playerTurn = vm.playerMe;
+
+    vm.gameStarted = false;
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
     vm.whitePalletCells = [
-        {'type':'White-Pawn', 'image': 'whitePawn.svg'},
-        {'type':'White-Rook', 'image': 'whiteRook.svg'},
-        {'type':'White-Knight', 'image': 'whiteKnight.svg'},
-        {'type':'White-Bishop', 'image': 'whiteBishop.svg'},
-        {'type':'White-King', 'image': 'whiteKing.svg'},
-        {'type':'White-Queen', 'image': 'whiteQueen.svg'}];
+        { 'type': 'White-Pawn', 'image': 'whitePawn.svg' },
+        { 'type': 'White-Rook', 'image': 'whiteRook.svg' },
+        { 'type': 'White-Knight', 'image': 'whiteKnight.svg' },
+        { 'type': 'White-Bishop', 'image': 'whiteBishop.svg' },
+        { 'type': 'White-King', 'image': 'whiteKing.svg' },
+        { 'type': 'White-Queen', 'image': 'whiteQueen.svg' }];
 
     vm.blackPalletCells = [
-        {'type':'Black-Pawn', 'image': 'blackPawn.svg'},
-        {'type':'Black-Rook', 'image': 'blackRook.svg'},
-        {'type':'Black-Knight', 'image': 'blackKnight.svg'},
-        {'type':'Black-Bishop', 'image': 'blackBishop.svg'},
-        {'type':'Black-King', 'image': 'blackKing.svg'},
-        {'type':'Black-Queen', 'image': 'blackQueen.svg'}];
+        { 'type': 'Black-Pawn', 'image': 'blackPawn.svg' },
+        { 'type': 'Black-Rook', 'image': 'blackRook.svg' },
+        { 'type': 'Black-Knight', 'image': 'blackKnight.svg' },
+        { 'type': 'Black-Bishop', 'image': 'blackBishop.svg' },
+        { 'type': 'Black-King', 'image': 'blackKing.svg' },
+        { 'type': 'Black-Queen', 'image': 'blackQueen.svg' }];
 
     vm.moveStack = [];
-    
+
     vm.showStart = true;
-    vm.toggleStart = function(){        
+    vm.toggleStart = function () {
         vm.showStart = !vm.showStart;
     }
 
     vm.showPiecePallet = false;
-    vm.togglePiecePallet = function(){
+    vm.togglePiecePallet = function () {
         vm.showPiecePallet = !vm.showPiecePallet;
     }
 
-    vm.resetPiecePallet = function(){
-        for(var i = 0; i < 6; i++){
-            document.getElementById('palletPiece-'+vm.whitePalletCells[i].type).innerHTML = '<img class="chessPiece" type="'+vm.whitePalletCells[i].type+'" src="img/'+vm.whitePalletCells[i].image+'">';
-            document.getElementById('palletPiece-'+vm.blackPalletCells[i].type).innerHTML = '<img class="chessPiece" type="'+vm.blackPalletCells[i].type+'" src="img/'+vm.blackPalletCells[i].image+'">';
+    vm.resetPiecePallet = function () {
+        for (var i = 0; i < 6; i++) {
+            document.getElementById('palletPiece-' + vm.whitePalletCells[i].type).innerHTML = '<img class="chessPiece" type="' + vm.whitePalletCells[i].type + '" src="img/' + vm.whitePalletCells[i].image + '">';
+            document.getElementById('palletPiece-' + vm.blackPalletCells[i].type).innerHTML = '<img class="chessPiece" type="' + vm.blackPalletCells[i].type + '" src="img/' + vm.blackPalletCells[i].image + '">';
         }
     }
 
     // CONFIGURATIONS
     vm.startingBoardConfig = {
-        "A1": "White-Rook",     "A2": "White-Pawn", "A7": "Black-Pawn", "A8": "Black-Rook",
-        "B1": "White-Knight",   "B2": "White-Pawn", "B7": "Black-Pawn", "B8": "Black-Knight",
-        "C1": "White-Bishop",   "C2": "White-Pawn", "C7": "Black-Pawn", "C8": "Black-Bishop",
-        "D1": "White-Queen",    "D2": "White-Pawn", "D7": "Black-Pawn", "D8": "Black-Queen",
-        "E1": "White-King",     "E2": "White-Pawn", "E7": "Black-Pawn", "E8": "Black-King",
-        "F1": "White-Bishop",   "F2": "White-Pawn", "F7": "Black-Pawn", "F8": "Black-Knight",
-        "G1": "White-Knight",   "G2": "White-Pawn", "G7": "Black-Pawn", "G8": "Black-Bishop",
-        "H1": "White-Rook",     "H2": "White-Pawn", "H7": "Black-Pawn", "H8": "Black-Rook"  
+        "A1": "White-Rook", "A2": "White-Pawn", "A7": "Black-Pawn", "A8": "Black-Rook",
+        "B1": "White-Knight", "B2": "White-Pawn", "B7": "Black-Pawn", "B8": "Black-Knight",
+        "C1": "White-Bishop", "C2": "White-Pawn", "C7": "Black-Pawn", "C8": "Black-Bishop",
+        "D1": "White-Queen", "D2": "White-Pawn", "D7": "Black-Pawn", "D8": "Black-Queen",
+        "E1": "White-King", "E2": "White-Pawn", "E7": "Black-Pawn", "E8": "Black-King",
+        "F1": "White-Bishop", "F2": "White-Pawn", "F7": "Black-Pawn", "F8": "Black-Knight",
+        "G1": "White-Knight", "G2": "White-Pawn", "G7": "Black-Pawn", "G8": "Black-Bishop",
+        "H1": "White-Rook", "H2": "White-Pawn", "H7": "Black-Pawn", "H8": "Black-Rook"
     }
     vm.testBoardConfig1 = {
-        "A1": "White-Pawn", "A2": "White-Knight","A3": "White-Bishop", "A4": "White-Queen", "A5": "White-King", "A6": "White-Rook",
-        "B1": "Black-Pawn", "B2": "Black-Knight","B3": "Black-Bishop", "B4": "Black-Queen", "B5": "Black-King", "B6": "Black-Rook" 
+        "A1": "White-Pawn", "A2": "White-Knight", "A3": "White-Bishop", "A4": "White-Queen", "A5": "White-King", "A6": "White-Rook",
+        "B1": "Black-Pawn", "B2": "Black-Knight", "B3": "Black-Bishop", "B4": "Black-Queen", "B5": "Black-King", "B6": "Black-Rook"
     }
     vm.blankBoardConfig = {
-        "A1": "", "A2": "","A3": "", "A4": "", "A5": "", "A6": "", "A7": "", "A8": "",
-        "B1": "", "B2": "","B3": "", "B4": "", "B5": "", "B6": "", "B7": "", "B8": "",
-        "C1": "", "C2": "","C3": "", "C4": "", "C5": "", "C6": "", "C7": "", "C8": "",
-        "D1": "", "D2": "","D3": "", "D4": "", "D5": "", "D6": "", "D7": "", "D8": "",
-        "E1": "", "E2": "","E3": "", "E4": "", "E5": "", "E6": "", "E7": "", "E8": "",
-        "F1": "", "F2": "","F3": "", "F4": "", "F5": "", "F6": "", "F7": "", "F8": "",
-        "G1": "", "G2": "","G3": "", "G4": "", "G5": "", "G6": "", "G7": "", "G8": "",
-        "H1": "", "H2": "","H3": "", "H4": "", "H5": "", "H6": "", "H7": "", "H8": ""  
+        "A1": "", "A2": "", "A3": "", "A4": "", "A5": "", "A6": "", "A7": "", "A8": "",
+        "B1": "", "B2": "", "B3": "", "B4": "", "B5": "", "B6": "", "B7": "", "B8": "",
+        "C1": "", "C2": "", "C3": "", "C4": "", "C5": "", "C6": "", "C7": "", "C8": "",
+        "D1": "", "D2": "", "D3": "", "D4": "", "D5": "", "D6": "", "D7": "", "D8": "",
+        "E1": "", "E2": "", "E3": "", "E4": "", "E5": "", "E6": "", "E7": "", "E8": "",
+        "F1": "", "F2": "", "F3": "", "F4": "", "F5": "", "F6": "", "F7": "", "F8": "",
+        "G1": "", "G2": "", "G3": "", "G4": "", "G5": "", "G6": "", "G7": "", "G8": "",
+        "H1": "", "H2": "", "H3": "", "H4": "", "H5": "", "H6": "", "H7": "", "H8": ""
     }
     vm.boardConfig = vm.testBoardConfig1;
     // END CONFIGURATIONS
 
     // Map the piece types to there respective images
     vm.pieceMap = {
-        "White-Pawn": "whitePawn.svg", "White-Knight": "whiteKnight.svg", "White-Bishop": "whiteBishop.svg", "White-Rook": "whiteRook.svg", "White-King": "whiteKing.svg", "White-Queen": "whiteQueen.svg", 
+        "White-Pawn": "whitePawn.svg", "White-Knight": "whiteKnight.svg", "White-Bishop": "whiteBishop.svg", "White-Rook": "whiteRook.svg", "White-King": "whiteKing.svg", "White-Queen": "whiteQueen.svg",
         "Black-Pawn": "blackPawn.svg", "Black-Knight": "blackKnight.svg", "Black-Bishop": "blackBishop.svg", "Black-Rook": "blackRook.svg", "Black-King": "blackKing.svg", "Black-Queen": "blackQueen.svg"
     }
 
     vm.resetGame = function (ask = true) {
-        if(ask){
+        vm.gameStarted = true;
+
+        if (ask) {
             if (!confirm("Are you sure you want to reset the board?")) {
                 return;
             }
@@ -116,7 +122,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             }
             else if (e.target.tagName == "IMG") {
                 // If we select the same piece then don't do anything
-                if(e.target == vm.selectedPiece){
+                if (e.target == vm.selectedPiece) {
                     return;
                 }
 
@@ -209,7 +215,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         vm.selectedPiece = null;
     }
 
-     vm.clearBoard = function(){
+    vm.clearBoard = function () {
         for (var i = 1; i <= 8; i++) {
             document.getElementById('A' + i).innerHTML = "";
             document.getElementById('B' + i).innerHTML = "";
@@ -222,50 +228,53 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         }
     }
 
-    vm.makeBoardJson = function(){
+    vm.makeBoardJson = function () {
         // Get snapshot of board and make a JSON board config out of it
         vm.boardConfig = {};
 
         //if something in the divs then it is a piece so we need to record it
         for (var i = 1; i <= 8; i++) {
-            for(var j = 0; j < 8; j++){
-                if(document.getElementById(vm.files[j] + i).innerHTML){
-                    vm.boardConfig[vm.files[j]+i] = document.getElementById(vm.files[j] + i).firstChild.getAttribute('type');                    
+            for (var j = 0; j < 8; j++) {
+                if (document.getElementById(vm.files[j] + i).innerHTML) {
+                    vm.boardConfig[vm.files[j] + i] = document.getElementById(vm.files[j] + i).firstChild.getAttribute('type');
                 }
-            }            
+            }
         }
-    }   
+    }
 
-    vm.populateJsonBoard = function(boardConfig = vm.boardConfig){
+    vm.populateJsonBoard = function (boardConfig = vm.boardConfig) {
         vm.clearBoard();
-        for(var square in boardConfig){
+        for (var square in boardConfig) {
             var pieceType = boardConfig[square];
             document.getElementById(square).innerHTML = '<img type="' + pieceType + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
         }
     }
 
-    vm.sendMovesToServer = function(){
+    vm.sendMovesToServer = function () {
+        vm.gameStarted = true;
         $http({
             method: "GET",
             url: "http://chess.hinksonhosting.com/saveGame.php",
             //url: "http://localhost/houseRulesChessBackend/saveGame.php",
-            params: {"data": {
-                "player1": vm.playerMe,
-                "player2": vm.playerOpponent,
-                "playerTurn": vm.playerOpponent,
-                "game": JSON.stringify(vm.boardConfig)                
+            params: {
+                "data": {
+                    "player1": vm.playerMe,
+                    "player2": vm.playerOpponent,
+                    "playerTurn": vm.playerOpponent,
+                    "game": JSON.stringify(vm.boardConfig)
                 }
             }
-        }).then(function(response){
-            if(!response.data){
+        }).then(function (response) {
+            if (!response.data) {
                 alert("An error occured, we were not able to record that move");
+                return;
             }
         });
         vm.playerTurn = vm.playerOpponent;
 
     }
 
-    vm.getServerMoves = function(){
+    vm.getServerMoves = function () {
         $http({
             method: "GET",
             url: "http://chess.hinksonhosting.com/loadGame.php",
@@ -276,16 +285,17 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                     "player2": vm.playerOpponent,
                 }
             }
-        }).then(function(response){
-            if(response.data.playerTurn == vm.playerMe){             
-                vm.playerTurn = response.data.playerTurn;   
+        }).then(function (response) {
+            if (response.data.playerTurn == vm.playerMe) {
+                vm.gameStarted = true;
+                vm.playerTurn = response.data.playerTurn;
                 vm.populateJsonBoard(JSON.parse(response.data.game));
             }
-            else{
+            else {
                 alert("They haven't moved yet");
             }
         });
-        
+
     }
 });
 

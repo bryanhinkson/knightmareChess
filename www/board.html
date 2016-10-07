@@ -1,6 +1,9 @@
-<input type="text" ng-model="main.playerMe">
-<input type="text" ng-model="main.playerOpponent">
+<div class="row">
+    <input class="player col-xs-6" type="text" ng-model="main.playerMe" placeholder="Player 1" readonly>
+    <input class="player col-xs-6" type="text" ng-model="main.playerOpponent" placeholder="Player 1" ng-readonly="main.gameStarted">
+</div>
 
+<br>
 
 <div class="board">
     <div class="" ng-repeat="rank in main.ranks">
@@ -41,8 +44,7 @@
 
 <div class="row">
     <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.getServerMoves()">Check Server</button>
-    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" 
-    ng-disabled="main.playerTurn != main.playerMe"
-    ng-click="main.sendMovesToServer()">End Turn</button>
+    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-disabled="main.playerTurn != main.playerMe"
+        ng-click="main.sendMovesToServer()">End Turn</button>
 </div>
 <hr>

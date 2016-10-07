@@ -109,3 +109,10 @@ nav * {
 .boardButton{
     padding: 10px 0px;
 }
+
+.player{
+    background-color: #e8eaed; /* Light gray*/
+    height:40px;
+    color: black;
+    margin-bottom: -15px;
+}

@@ -8,6 +8,11 @@ app.config(['$routeProvider', '$locationProvider',
         controller: 'boardController',
         controllerAs: 'main'
       })
+      .when('/board/:username', {
+        templateUrl: 'board.html',
+        controller: 'boardController',
+        controllerAs: 'main'
+      })
       .when('/credits', {
         templateUrl: 'credits.html',
         controller: 'mainController',
@@ -20,9 +25,9 @@ app.config(['$routeProvider', '$locationProvider',
       });
 }]);
 
-app.controller('mainController', function ($scope, $route, $routeParams, $location) {
+app.controller('mainController', function ($scope, $route, $routeParams, $location, $http) {
 
-    // Main elements
+    // Main Elements ---------------------------------------------------------
 
     $scope.showNav = false;
     $scope.toggleNav = function (e, close = false) {
@@ -38,5 +43,32 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
             $scope.showNav = !$scope.showNav;
         }        
     }
+
+    // End Main elements -------------------------------------------------------------
+
+    var vm = this;
+    vm.username = null;
+    vm.password = null;
+
+    vm.login = function(){
+        $http({
+            method: "GET",
+            url: "http://chess.hinksonhosting.com/login.php",
+            //url: "http://localhost/houseRulesChessBackend/login.php",
+            params: {
+                "data": {
+                    "username": vm.username,
+                    "password": vm.password
+                }
+            }
+        }).then(function (response) {
+            console.log(response.data);  
+            if(response.data.loginSuccess === true){
+               $location.path("/board/"+response.data.username);
+            }              
+        });
+    }
+
+
 });
 
