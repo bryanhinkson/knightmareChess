@@ -16,7 +16,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.gameStarted = false;
 
     //vm.apiUrl = "http://localhost/houseRulesChessBackend";
-    vm.apiUrl = "http://chess.hinksonhosting.com";
+    vm.apiUrl = "http://chess.hinksonhosting.com/api";
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
