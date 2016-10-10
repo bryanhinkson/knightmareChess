@@ -291,10 +291,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                 vm.gameStarted = true;
                 vm.playerTurn = response.data.playerTurn;
                 vm.populateJsonBoard(JSON.parse(response.data.game));
-                console.log("Board updated");
             }
             else {
-                console.log("Player still hasn't moved");
                 if(force){
                     alert("They haven't moved yet");
                 }
@@ -314,7 +312,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             else {
                 return;
             }
-        }, 5000);
+        }, 10000);
     };
 
 
