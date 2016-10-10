@@ -43,7 +43,7 @@
 </div>
 
 <div class="row">
-    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.getServerMoves()">Check Server</button>
+    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.refresh(true)">Refresh</button>
     <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-disabled="main.playerTurn != main.playerMe"
         ng-click="main.sendMovesToServer()">End Turn</button>
 </div>

@@ -15,8 +15,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     vm.gameStarted = false;
 
-    vm.apiUrl = "http://localhost/houseRulesChessBackend";
-    //vm.apiUrl = "http://chess.hinksonhosting.com";
+    //vm.apiUrl = "http://localhost/houseRulesChessBackend";
+    vm.apiUrl = "http://chess.hinksonhosting.com";
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -273,9 +273,10 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             }
         });
         vm.playerTurn = vm.playerOpponent;
+        vm.poll();
     }
 
-    vm.getServerMoves = function () {
+    vm.refresh = function (force = false) {
         $http({
             method: "GET",
             url: vm.apiUrl + "/loadGame.php",
@@ -290,13 +291,31 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                 vm.gameStarted = true;
                 vm.playerTurn = response.data.playerTurn;
                 vm.populateJsonBoard(JSON.parse(response.data.game));
+                console.log("Board updated");
             }
             else {
-                alert("They haven't moved yet");
+                console.log("Player still hasn't moved");
+                if(force){
+                    alert("They haven't moved yet");
+                }
             }
         });
 
     }
+
+    vm.poll = function() {
+        setTimeout(function () {
+            if (vm.playerTurn != vm.playerMe) {
+                vm.refresh();
+
+                // recursive call
+                vm.poll();
+            }
+            else {
+                return;
+            }
+        }, 5000);
+    };
 
 
 });
