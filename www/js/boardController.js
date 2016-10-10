@@ -15,6 +15,9 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     vm.gameStarted = false;
 
+    vm.apiUrl = "http://localhost/houseRulesChessBackend";
+    //vm.apiUrl = "http://chess.hinksonhosting.com";
+
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
@@ -60,8 +63,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         "C1": "White-Bishop", "C2": "White-Pawn", "C7": "Black-Pawn", "C8": "Black-Bishop",
         "D1": "White-Queen", "D2": "White-Pawn", "D7": "Black-Pawn", "D8": "Black-Queen",
         "E1": "White-King", "E2": "White-Pawn", "E7": "Black-Pawn", "E8": "Black-King",
-        "F1": "White-Bishop", "F2": "White-Pawn", "F7": "Black-Pawn", "F8": "Black-Knight",
-        "G1": "White-Knight", "G2": "White-Pawn", "G7": "Black-Pawn", "G8": "Black-Bishop",
+        "F1": "White-Bishop", "F2": "White-Pawn", "F7": "Black-Pawn", "F8": "Black-Bishop",
+        "G1": "White-Knight", "G2": "White-Pawn", "G7": "Black-Pawn", "G8": "Black-Knight",
         "H1": "White-Rook", "H2": "White-Pawn", "H7": "Black-Pawn", "H8": "Black-Rook"
     }
     vm.testBoardConfig1 = {
@@ -254,8 +257,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         vm.gameStarted = true;
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/saveGame.php",
-            //url: "http://localhost/houseRulesChessBackend/saveGame.php",
+            url: vm.apiUrl + "/saveGame.php",
             params: {
                 "data": {
                     "player1": vm.playerMe,
@@ -271,14 +273,12 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             }
         });
         vm.playerTurn = vm.playerOpponent;
-
     }
 
     vm.getServerMoves = function () {
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/loadGame.php",
-            //url: "http://localhost/houseRulesChessBackend/loadGame.php",
+            url: vm.apiUrl + "/loadGame.php",
             params: {
                 "data": {
                     "player1": vm.playerMe,
@@ -297,5 +297,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         });
 
     }
+
+
 });
 
