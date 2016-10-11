@@ -116,3 +116,7 @@ nav * {
     color: black;
     margin-bottom: -15px;
 }
+
+.right {
+    float: right;
+}
