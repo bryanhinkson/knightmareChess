@@ -47,14 +47,18 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
     // End Main elements -------------------------------------------------------------
 
     var vm = this;
+
+    vm.apiUrl = "http://chess.hinksonhosting.com/api";
+    //vm.apiUrl = "http://localhost/houseRulesChessBackend/api/login.php"
+
     vm.username = null;
     vm.password = null;
 
     vm.login = function(){
         $http({
             method: "GET",
-            url: "http://chess.hinksonhosting.com/login.php",
-            //url: "http://localhost/houseRulesChessBackend/login.php",
+            url: vm.apiUrl + "/login.php",
+            
             params: {
                 "data": {
                     "username": vm.username,
@@ -62,8 +66,33 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
                 }
             }
         }).then(function (response) {
-            if(response.data.loginSuccess === true){
+            console.log(response);
+            if(response.data.loginSuccess){
                $location.path("/board/"+response.data.username);
+            }              
+        });
+    }
+
+    vm.createAccount = function(){
+        $http({
+            method: "GET",
+            url: vm.apiUrl + "/createAccount.php",
+            
+            params: {
+                "data": {
+                    "username": vm.username,
+                    "password": vm.password
+                }
+            }
+        }).then(function (response) {
+            if(response.data.error){
+                alert('It looks like there was an error, and we are unable to create the account.  Please try again later.');
+            }
+            if(response.data.userExists){
+               alert("It looks like that user already exists, please use a different username");
+            }
+            else if(!response.data.error) {
+                $location.path("/board/"+response.data.username);
             }              
         });
     }
