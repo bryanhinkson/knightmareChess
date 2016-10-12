@@ -53,6 +53,35 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
 
     vm.username = null;
     vm.password = null;
+    vm.confirmPassword = null;
+    vm.errorMessage = null;
+
+    vm.noErrors = true;
+    vm.checkPasswordsMatch = function(){
+        if(vm.username && vm.password && vm.confirmPassword){
+            if(vm.confirmPassword == vm.password){
+                vm.noErrors = true;
+                vm.createAccount();
+            }
+            else{
+                vm.noErrors = false;
+                vm.errorMessage = "Passwords don't match";
+            }
+        }
+        else{
+            vm.noErrors = false;
+            vm.errorMessage = "All fields are required.";
+        }
+    }
+
+    vm.showCreateAccount = false;
+    vm.toggleCreateAccount = function () {
+        vm.showCreateAccount = !vm.showCreateAccount;
+    }
+
+    vm.localPlay = function(){
+        $location.path("/board/PlayLocallyOnly");
+    }
 
     vm.login = function(){
         $http({
@@ -66,7 +95,6 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
                 }
             }
         }).then(function (response) {
-            console.log(response);
             if(response.data.loginSuccess){
                $location.path("/board/"+response.data.username);
             }              

@@ -5,12 +5,19 @@
         <p> Login: </p>
         <input class="form-control" type="text" name="username" placeholder="Username" ng-model="main.username">
         <input class="form-control" type="password" name="password" placeholder="Password" ng-model="main.password">
+        <div ng-show="main.showCreateAccount">
+            <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" ng-model="main.confirmPassword">
+            <span ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</span>
+            <button class="btn btn-lg btn-primary col-xs-12" ng-click="main.checkPasswordsMatch()">Submit</button>            
+        </div>
+
         <br>
-        <button class="btn btn-sm btn-success" ng-click="main.login()">Login</button>
-        <button class="btn btn-sm btn-primary right" ng-click="main.createAccount()">Create Account</button>
+        <button class="btn btn-lg btn-success col-xs-12" ng-click="main.login()">Login</button>
+        <button ng-hide="main.showCreateAccount" class="btn btn-lg btn-primary col-xs-12" ng-click="main.toggleCreateAccount()">Create Account</button>
+
     </div>
 </div>
 <br>
 <br>
 
-<a href="#/board"><button id="StartButton" class="btn btn-lg btn-success col-xs-8 col-xs-offset-2">New Game!</button></a>
+<button id="StartButton" class="btn btn-lg btn-default col-xs-8 col-xs-offset-2" ng-click="main.localPlay()">Local Play</button>

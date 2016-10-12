@@ -6,6 +6,14 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     var vm = this;
 
+    //Ok so this isn't really a username but I don't think anyone will pick that one :)
+    if($routeParams.username == "PlayLocallyOnly"){
+        vm.PlayLocallyOnly = true;
+    }
+    else{
+        vm.PlayLocallyOnly = false;
+    }
+
     vm.user = $routeParams.username;
 
     vm.playerMe = vm.user;
@@ -67,10 +75,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         "G1": "White-Knight", "G2": "White-Pawn", "G7": "Black-Pawn", "G8": "Black-Knight",
         "H1": "White-Rook", "H2": "White-Pawn", "H7": "Black-Pawn", "H8": "Black-Rook"
     }
-    vm.testBoardConfig1 = {
-        "A1": "White-Pawn", "A2": "White-Knight", "A3": "White-Bishop", "A4": "White-Queen", "A5": "White-King", "A6": "White-Rook",
-        "B1": "Black-Pawn", "B2": "Black-Knight", "B3": "Black-Bishop", "B4": "Black-Queen", "B5": "Black-King", "B6": "Black-Rook"
-    }
+
     vm.blankBoardConfig = {
         "A1": "", "A2": "", "A3": "", "A4": "", "A5": "", "A6": "", "A7": "", "A8": "",
         "B1": "", "B2": "", "B3": "", "B4": "", "B5": "", "B6": "", "B7": "", "B8": "",
@@ -81,7 +86,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         "G1": "", "G2": "", "G3": "", "G4": "", "G5": "", "G6": "", "G7": "", "G8": "",
         "H1": "", "H2": "", "H3": "", "H4": "", "H5": "", "H6": "", "H7": "", "H8": ""
     }
-    vm.boardConfig = vm.testBoardConfig1;
+
+    vm.boardConfig = vm.startingBoardConfig;
     // END CONFIGURATIONS
 
     // Map the piece types to there respective images

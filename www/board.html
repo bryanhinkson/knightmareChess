@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-hide="main.PlayLocallyOnly">
     <input class="player col-xs-6" type="text" ng-model="main.playerMe" placeholder="Player 1" readonly>
     <input class="player col-xs-6" type="text" ng-model="main.playerOpponent" placeholder="Player 1" ng-readonly="main.gameStarted">
 </div>
@@ -17,11 +17,19 @@
 
 <br>
 
+<div class="row" ng-hide="main.PlayLocallyOnly">
+    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.refresh(true)">Refresh</button>
+    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-disabled="main.playerTurn != main.playerMe"
+        ng-click="main.sendMovesToServer()">End Turn</button>
+</div>
+
+<hr>
+
 <div class="row">
     <button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="main.undo()">Undo</button>
     <button class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 boardButton" ng-click="main.togglePiecePallet()">Piece Pallet</button>
-    <button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-hide="main.showStart" ng-click="main.resetGame();">Reset Game</button>
-    <button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="main.showStart" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
+    <button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-show="main.gameStarted" ng-click="main.resetGame();">Reset Game</button>
+    <button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="main.showStart && !main.gameStarted" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
 </div>
 
 <hr>
@@ -41,10 +49,3 @@
     </div>
     <hr>
 </div>
-
-<div class="row">
-    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.refresh(true)">Refresh</button>
-    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-disabled="main.playerTurn != main.playerMe"
-        ng-click="main.sendMovesToServer()">End Turn</button>
-</div>
-<hr>
