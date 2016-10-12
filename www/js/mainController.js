@@ -70,7 +70,7 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
         }
         else{
             vm.noErrors = false;
-            vm.errorMessage = "All fields are required.";
+            vm.errorMessage = "All fields are required";
         }
     }
 
@@ -97,6 +97,10 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
         }).then(function (response) {
             if(response.data.loginSuccess){
                $location.path("/board/"+response.data.username);
+            }
+            else{
+                vm.noErrors = false;
+                vm.errorMessage = "Username and password do not match";
             }              
         });
     }

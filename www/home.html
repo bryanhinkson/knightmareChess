@@ -7,9 +7,10 @@
         <input class="form-control" type="password" name="password" placeholder="Password" ng-model="main.password">
         <div ng-show="main.showCreateAccount">
             <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" ng-model="main.confirmPassword">
-            <span ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</span>
             <button class="btn btn-lg btn-primary col-xs-12" ng-click="main.checkPasswordsMatch()">Submit</button>            
         </div>
+
+        <span ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</span>
 
         <br>
         <button class="btn btn-lg btn-success col-xs-12" ng-click="main.login()">Login</button>
