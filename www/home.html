@@ -1,22 +1,28 @@
 <h1 class="page-header"> House rules Chess </h1>
 
 <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
-        <p> Login: </p>
-        <input class="form-control" type="text" name="username" placeholder="Username" ng-model="main.username">
-        <input class="form-control" type="password" name="password" placeholder="Password" ng-model="main.password">
-        <div ng-show="main.showCreateAccount">
-            <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" ng-model="main.confirmPassword">
-            <button class="btn btn-lg btn-primary col-xs-12" ng-click="main.checkPasswordsMatch()">Submit</button>            
-        </div>
+	<div class="col-xs-6 col-xs-offset-3">
+		<p> Login: </p>
+		<input class="form-control" type="text" placeholder="Username" ng-model="main.username">
+		<input class="form-control" type="password" placeholder="Password" ng-model="main.password">
 
-        <span ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</span>
+			<input ng-show="main.showCreateAccount" class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" ng-model="main.confirmPassword">
 
-        <br>
-        <button class="btn btn-lg btn-success col-xs-12" ng-click="main.login()">Login</button>
-        <button ng-hide="main.showCreateAccount" class="btn btn-lg btn-primary col-xs-12" ng-click="main.toggleCreateAccount()">Create Account</button>
+            <br>
+			<label for="rememberMe" class="right">Remember Me </label>
+            <input id="rememberMe" class="right" type="checkbox" ng-model="main.rememberUser" checked>
+            <br>
+            
+			<button ng-show="main.showCreateAccount" class="btn btn-lg btn-primary col-xs-12" ng-click="main.checkPasswordsMatch()">Submit</button>
 
-    </div>
+
+		<span ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</span>
+
+		<br>
+		<button class="btn btn-lg btn-success col-xs-12" ng-click="main.storeUser(); main.login();">Login</button>
+		<button ng-hide="main.showCreateAccount" class="btn btn-lg btn-primary col-xs-12" ng-click="main.toggleCreateAccount()">Create Account</button>
+
+	</div>
 </div>
 <br>
 <br>

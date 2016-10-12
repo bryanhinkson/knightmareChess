@@ -48,11 +48,23 @@ app.controller('mainController', function ($scope, $route, $routeParams, $locati
 
     var vm = this;
 
+    vm.rememberUser = true;
+    vm.storeUser = function(){
+        if(vm.rememberUser){
+            window.localStorage.user = vm.username;
+            window.localStorage.password = vm.password;
+        }
+        else{
+            window.localStorage.user = null;
+            window.localStorage.password = null;
+        }
+    }
+
     vm.apiUrl = "http://chess.hinksonhosting.com/api";
     //vm.apiUrl = "http://localhost/houseRulesChessBackend/api/login.php"
 
-    vm.username = null;
-    vm.password = null;
+    vm.username = window.localStorage.user;
+    vm.password = window.localStorage.password;
     vm.confirmPassword = null;
     vm.errorMessage = null;
 
