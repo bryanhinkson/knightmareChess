@@ -19,12 +19,26 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.playerMe = vm.user;
     vm.playerOpponent = "";
 
-    vm.playerTurn = vm.playerMe;
-
     vm.gameStarted = false;
 
-    //vm.apiUrl = "http://localhost/houseRulesChessBackend";
+    //vm.apiUrl = "http://localhost/houseRulesChessBackend/api";
     vm.apiUrl = "http://chess.hinksonhosting.com/api";
+
+    vm.users = [];
+    vm.getUsers = function(){
+        $http({
+            method: "GET",
+            url: vm.apiUrl + "/getUsers.php"
+        }).then(function (response) {
+            for(var i = 0; i < response.data.users.length; i++){
+                vm.users.push(response.data.users[i].username.toUpperCase());
+            }
+        });
+
+    }
+    vm.getUsers();
+
+    vm.playerTurn = vm.playerMe;
 
     vm.ranks = [1, 2, 3, 4, 5, 6, 7, 8];
     vm.files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];

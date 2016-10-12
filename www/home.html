@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-3">
 		<p> Login: </p>
-		<input class="form-control" type="text" placeholder="Username" ng-model="main.username">
+		<input class="form-control" type="text" placeholder="Username (Visible)" ng-model="main.username">
 		<input class="form-control" type="password" placeholder="Password" ng-model="main.password">
 
 			<input ng-show="main.showCreateAccount" class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" ng-model="main.confirmPassword">
@@ -12,11 +12,11 @@
 			<label for="rememberMe" class="right">Remember Me </label>
             <input id="rememberMe" class="right" type="checkbox" ng-model="main.rememberUser" checked>
             <br>
-            
+
 			<button ng-show="main.showCreateAccount" class="btn btn-lg btn-primary col-xs-12" ng-click="main.checkPasswordsMatch()">Submit</button>
 
 
-		<span ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</span>
+		<p ng-show="!main.noErrors" style="color: red; font-size:1.25em;">{{main.errorMessage}}</p>
 
 		<br>
 		<button class="btn btn-lg btn-success col-xs-12" ng-click="main.storeUser(); main.login();">Login</button>
