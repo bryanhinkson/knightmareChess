@@ -1,15 +1,15 @@
-<div class="row" ng-hide="main.PlayLocallyOnly">
-    <input class="player col-xs-6" type="text" ng-model="main.playerMe" placeholder="Player 1" readonly>
-    <input class="player col-xs-6" type="text" ng-model="main.playerOpponent" placeholder="Player 1" ng-readonly="main.gameStarted">
+<div class="row" ng-hide="board.PlayLocallyOnly">
+    <input class="player col-xs-6" type="text" ng-model="board.playerMe" placeholder="Player 1" readonly>
+    <input class="player col-xs-6" type="text" ng-model="board.playerOpponent" placeholder="Player 1" ng-readonly="board.gameStarted">
 </div>
 
 <br>
 
 <div class="board">
-    <div class="" ng-repeat="rank in main.ranks">
+    <div class="" ng-repeat="rank in board.ranks">
         <div class="row">
-            <div class="" ng-repeat="file in main.files">
-                <div id="{{file}}{{8-$parent.$index}}" ng-click="main.select($event);" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+            <div class="" ng-repeat="file in board.files">
+                <div id="{{file}}{{8-$parent.$index}}" ng-click="board.select($event);" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
             </div>
         </div>
     </div>
@@ -17,32 +17,32 @@
 
 <br>
 
-<div class="row" ng-hide="main.PlayLocallyOnly">
-    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="main.refresh(true)">Refresh</button>
-    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-disabled="main.playerTurn != main.playerMe"
-        ng-click="main.sendMovesToServer()">End Turn</button>
+<div class="row" ng-hide="board.PlayLocallyOnly">
+    <button class="btn btn-lg btn-success col-xs-5 boardButton" ng-click="board.refresh(true)">Refresh</button>
+    <button class="btn btn-lg btn-warning col-xs-5 col-xs-offset-2 boardButton" ng-disabled="board.playerTurn != board.playerMe"
+        ng-click="board.sendMovesToServer()">End Turn</button>
 </div>
 
 <hr>
 
 <div class="row">
-    <button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="main.undo()">Undo</button>
-    <button class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 boardButton" ng-click="main.togglePiecePallet()">Piece Pallet</button>
-    <button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-show="main.gameStarted" ng-click="main.resetGame();">Reset Game</button>
-    <button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="main.showStart && !main.gameStarted" ng-click="main.resetGame(false); main.toggleStart()">Start Game</button>
+    <button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="board.undo()">Undo</button>
+    <button class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 boardButton" ng-click="board.togglePiecePallet()">Piece Pallet</button>
+    <button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-show="board.gameStarted" ng-click="board.resetGame();">Reset Game</button>
+    <button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="board.showStart && !board.gameStarted" ng-click="board.resetGame(false); board.toggleStart()">Start Game</button>
 </div>
 
 <hr>
 
-<div ng-show="main.showPiecePallet">
+<div ng-show="board.showPiecePallet">
     <div class="palletContainer">
         <div class="row">
-            <div class="piecePalletCell" id="palletPiece-{{piece.type}}" ng-repeat="piece in main.whitePalletCells" ng-click="main.select($event)">
+            <div class="piecePalletCell" id="palletPiece-{{piece.type}}" ng-repeat="piece in board.whitePalletCells" ng-click="board.select($event)">
                 <img class="chessPiece" type="{{piece.type}}" ng-src="img/{{piece.image}}">
             </div>
         </div>
         <div class="row">
-            <div class="piecePalletCell" id="palletPiece-{{piece.type}}" ng-repeat="piece in main.blackPalletCells" ng-click="main.select($event)">
+            <div class="piecePalletCell" id="palletPiece-{{piece.type}}" ng-repeat="piece in board.blackPalletCells" ng-click="board.select($event)">
                 <img class="chessPiece" type="{{piece.type}}" ng-src="img/{{piece.image}}">
             </div>
         </div>

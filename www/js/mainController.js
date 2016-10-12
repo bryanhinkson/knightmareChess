@@ -11,7 +11,7 @@ app.config(['$routeProvider', '$locationProvider',
       .when('/board/:username', {
         templateUrl: 'board.html',
         controller: 'boardController',
-        controllerAs: 'main'
+        controllerAs: 'board'
       })
       .when('/credits', {
         templateUrl: 'credits.html',
