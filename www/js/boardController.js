@@ -31,6 +31,9 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             url: vm.apiUrl + "/getUsers.php"
         }).then(function (response) {
             for(var i = 0; i < response.data.users.length; i++){
+                if(response.data.users[i].username == "playlocallyonly"){
+                    continue;
+                }
                 vm.users.push(response.data.users[i].username.toUpperCase());
             }
         });
