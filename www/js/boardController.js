@@ -149,6 +149,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             else if (e.target.tagName == "IMG") {
                 // If we select the same piece then don't do anything
                 if (e.target == vm.selectedPiece) {
+                    vm.selectedPiece = null;
                     return;
                 }
 
