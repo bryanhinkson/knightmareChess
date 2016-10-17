@@ -7,10 +7,10 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     var vm = this;
 
     //Ok so this isn't really a username but I don't think anyone will pick that one :)
-    if($routeParams.username == "PlayLocallyOnly"){
+    if ($routeParams.username == "PlayLocallyOnly") {
         vm.PlayLocallyOnly = true;
     }
-    else{
+    else {
         vm.PlayLocallyOnly = false;
     }
 
@@ -25,13 +25,13 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.apiUrl = "http://chess.hinksonhosting.com/api";
 
     vm.users = [];
-    vm.getUsers = function(){
+    vm.getUsers = function () {
         $http({
             method: "GET",
             url: vm.apiUrl + "/getUsers.php"
         }).then(function (response) {
-            for(var i = 0; i < response.data.users.length; i++){
-                if(response.data.users[i].username == "playlocallyonly"){
+            for (var i = 0; i < response.data.users.length; i++) {
+                if (response.data.users[i].username == "playlocallyonly") {
                     continue;
                 }
                 vm.users.push(response.data.users[i].username.toUpperCase());
@@ -278,54 +278,64 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     }
 
     vm.sendMovesToServer = function () {
-        vm.gameStarted = true;
-        $http({
-            method: "GET",
-            url: vm.apiUrl + "/saveGame.php",
-            params: {
-                "data": {
-                    "player1": vm.playerMe.toLowerCase(),
-                    "player2": vm.playerOpponent.toLowerCase(),
-                    "playerTurn": vm.playerOpponent.toLowerCase(),
-                    "game": JSON.stringify(vm.boardConfig)
+        if (vm.playerOpponent == "" || vm.playerOpponent == null) {
+            alert("You need to select a player to play with");
+        }
+        else {
+            vm.gameStarted = true;
+            $http({
+                method: "GET",
+                url: vm.apiUrl + "/saveGame.php",
+                params: {
+                    "data": {
+                        "player1": vm.playerMe.toLowerCase(),
+                        "player2": vm.playerOpponent.toLowerCase(),
+                        "playerTurn": vm.playerOpponent.toLowerCase(),
+                        "game": JSON.stringify(vm.boardConfig)
+                    }
                 }
-            }
-        }).then(function (response) {
-            if (!response.data) {
-                alert("An error occured, we were not able to record that move");
-                return;
-            }
-        });
-        vm.playerTurn = vm.playerOpponent;
-        vm.poll();
+            }).then(function (response) {
+                if (!response.data) {
+                    alert("An error occured, we were not able to record that move");
+                    return;
+                }
+            });
+            vm.playerTurn = vm.playerOpponent;
+            vm.poll();
+        }
     }
 
     vm.refresh = function (force = false) {
-        $http({
-            method: "GET",
-            url: vm.apiUrl + "/loadGame.php",
-            params: {
-                "data": {
-                    "player1": vm.playerMe.toLowerCase(),
-                    "player2": vm.playerOpponent.toLowerCase(),
+        if (vm.playerOpponent == "" || vm.playerOpponent == null) {
+            alert("You need to select a player to play with");
+        }
+        else {
+            $http({
+                method: "GET",
+                url: vm.apiUrl + "/loadGame.php",
+                params: {
+                    "data": {
+                        "player1": vm.playerMe.toLowerCase(),
+                        "player2": vm.playerOpponent.toLowerCase(),
+                    }
                 }
-            }
-        }).then(function (response) {
-            if (response.data.playerTurn == vm.playerMe.toLowerCase()) {
-                vm.gameStarted = true;
-                vm.playerTurn = vm.playerMe;
-                vm.populateJsonBoard(JSON.parse(response.data.game));
-            }
-            else {
-                if(force){
-                    alert("They haven't moved yet");
+            }).then(function (response) {
+                if (response.data.playerTurn == vm.playerMe.toLowerCase()) {
+                    vm.gameStarted = true;
+                    vm.playerTurn = vm.playerMe;
+                    vm.populateJsonBoard(JSON.parse(response.data.game));
                 }
-            }
-        });
+                else {
+                    if (force) {
+                        alert("They haven't moved yet");
+                    }
+                }
+            });
+        }
 
     }
 
-    vm.poll = function() {
+    vm.poll = function () {
         setTimeout(function () {
             if (vm.playerTurn.toLowerCase() != vm.playerMe.toLowerCase()) {
                 vm.refresh();
