@@ -114,10 +114,15 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     }
 
     vm.resetGame = function (ask = true) {
-        vm.gameStarted = true;
+        if(vm.playerOpponent == "" || vm.playerOpponent == null){
+            vm.gameStarted = false;
+        }
+        else{
+            vm.gameStarted = true;
+        }
 
         if (ask) {
-            if (!confirm("Are you sure you want to reset the board?")) {
+            if (!confirm("You cannot undo this action!  Are you sure you want to reset the board?")) {
                 return;
             }
         }
