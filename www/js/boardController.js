@@ -122,7 +122,12 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         }
     }
 
-    vm.savedConfigs = JSON.parse(window.localStorage.savedBoardConfig);
+    if (window.localStorage.savedBoardConfig != null){
+        vm.savedConfigs = JSON.parse(window.localStorage.savedBoardConfig);
+    }
+    else {
+        vm.savedConfigs = [];
+    }
     vm.saveCurrentConfig = function () {
         var name = prompt("What would you like to call this board Configuration?");
         var savedBoards = [];
@@ -135,6 +140,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         }
         savedBoards.push(configObject);
         window.localStorage.savedBoardConfig = JSON.stringify(savedBoards);
+        vm.savedConfigs.push(configObject);
     }
 
     vm.loadBoardConfig = function () {

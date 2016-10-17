@@ -42,7 +42,7 @@
 
 <div ng-show="board.showGameMenu" class="row">
 	<hr>
-	<button class="btn btn-sm btn-success col-xs-3 boardButton" ng-click="board.saveCurrentConfig();">Save Board Config</button>
+	<button class="btn btn-sm btn-success col-xs-3 boardButton" ng-click="board.saveCurrentConfig();">Save Board</button>
 
 	<select class="col-xs-3 col-xs-offset-1 dropdown" ng-model="board.LoadThisBoardConfig">
 		<option ng-repeat="config in board.savedConfigs" value="{{config}}">{{config.name}}</option>
