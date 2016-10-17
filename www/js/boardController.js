@@ -284,9 +284,9 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             url: vm.apiUrl + "/saveGame.php",
             params: {
                 "data": {
-                    "player1": vm.playerMe,
-                    "player2": vm.playerOpponent,
-                    "playerTurn": vm.playerOpponent,
+                    "player1": vm.playerMe.toLowerCase(),
+                    "player2": vm.playerOpponent.toLowerCase(),
+                    "playerTurn": vm.playerOpponent.toLowerCase(),
                     "game": JSON.stringify(vm.boardConfig)
                 }
             }
@@ -306,14 +306,14 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
             url: vm.apiUrl + "/loadGame.php",
             params: {
                 "data": {
-                    "player1": vm.playerMe,
-                    "player2": vm.playerOpponent,
+                    "player1": vm.playerMe.toLowerCase(),
+                    "player2": vm.playerOpponent.toLowerCase(),
                 }
             }
         }).then(function (response) {
-            if (response.data.playerTurn == vm.playerMe) {
+            if (response.data.playerTurn == vm.playerMe.toLowerCase()) {
                 vm.gameStarted = true;
-                vm.playerTurn = response.data.playerTurn;
+                vm.playerTurn = vm.playerMe;
                 vm.populateJsonBoard(JSON.parse(response.data.game));
             }
             else {
@@ -327,7 +327,7 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     vm.poll = function() {
         setTimeout(function () {
-            if (vm.playerTurn != vm.playerMe) {
+            if (vm.playerTurn.toLowerCase() != vm.playerMe.toLowerCase()) {
                 vm.refresh();
 
                 // recursive call
