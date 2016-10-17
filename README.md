@@ -13,8 +13,6 @@ Todo:
 
     functionality:
         - Option to require moves to follow rules (there are Trolls online)
-        - Ability to save configurations
-        - Ability to load configurations
         - Sounds
     
     Expansions:

@@ -107,6 +107,43 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.boardConfig = vm.startingBoardConfig;
     // END CONFIGURATIONS
 
+    vm.showGameMenu = false;
+    vm.toggleGameMenu = function (e, close = false) {
+        e.stopPropagation();
+        if (close == 'keepAlive') {
+            return;
+        }
+        if (close == true) {
+            vm.showGameMenu = false;
+            return;
+        }
+        else {
+            vm.showGameMenu = !vm.showGameMenu;
+        }
+    }
+
+    vm.savedConfigs = JSON.parse(window.localStorage.savedBoardConfig);
+    vm.saveCurrentConfig = function () {
+        var name = prompt("What would you like to call this board Configuration?");
+        var savedBoards = [];
+        if (window.localStorage.savedBoardConfig != null) {
+            savedBoards = JSON.parse(window.localStorage.savedBoardConfig);
+        }
+        var configObject = {
+            "name": name,
+            "config": vm.boardConfig
+        }
+        savedBoards.push(configObject);
+        window.localStorage.savedBoardConfig = JSON.stringify(savedBoards);
+    }
+
+    vm.loadBoardConfig = function () {
+        var config = JSON.parse(vm.LoadThisBoardConfig);
+        if (confirm("Are you sure you want to load the following Board Configuration: " + config.name)) {
+            vm.populateJsonBoard(config.config);
+        }
+    }
+
     // Map the piece types to there respective images
     vm.pieceMap = {
         "White-Pawn": "whitePawn.svg", "White-Knight": "whiteKnight.svg", "White-Bishop": "whiteBishop.svg", "White-Rook": "whiteRook.svg", "White-King": "whiteKing.svg", "White-Queen": "whiteQueen.svg",
@@ -114,10 +151,10 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     }
 
     vm.resetGame = function (ask = true) {
-        if(vm.playerOpponent == "" || vm.playerOpponent == null){
+        if (vm.playerOpponent == "" || vm.playerOpponent == null) {
             vm.gameStarted = false;
         }
-        else{
+        else {
             vm.gameStarted = true;
         }
 

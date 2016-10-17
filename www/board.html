@@ -32,9 +32,24 @@
 <div class="row">
 	<button class="btn btn-lg btn-warning col-xs-2 boardButton" ng-click="board.undo()">Undo</button>
 	<button class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 boardButton" ng-click="board.togglePiecePallet()">Piece Pallet</button>
-	<button class="btn btn-lg btn-danger col-xs-4 col-xs-offset-1 boardButton" ng-show="board.gameStarted" ng-click="board.resetGame();">Reset Game</button>
 	<button class="btn btn-lg btn-success col-xs-4 col-xs-offset-1 boardButton" ng-show="board.showStart && !board.gameStarted"
 		ng-click="board.resetGame(false); board.toggleStart()">Start Game</button>
+
+	<button ng-show="!board.showStart" id="gameMenu" type="button" class="btn btn-lg btn-default col-xs-4 col-xs-offset-1" ng-click="board.toggleGameMenu($event)">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+</div>
+
+<div ng-show="board.showGameMenu" class="row">
+	<hr>
+	<button class="btn btn-sm btn-success col-xs-3 boardButton" ng-click="board.saveCurrentConfig();">Save Board Config</button>
+
+	<select class="col-xs-3 col-xs-offset-1 dropdown" ng-model="board.LoadThisBoardConfig">
+		<option ng-repeat="config in board.savedConfigs" value="{{config}}">{{config.name}}</option>
+	</select>
+	<button class="btn btn-sm btn-warning col-xs-2 boardButton" ng-click="board.loadBoardConfig();">Load</button>
+
+	<button class="btn btn-sm btn-danger col-xs-2  col-xs-offset-1 boardButton" ng-show="board.gameStarted" ng-click="board.resetGame();">Reset</button>
 </div>
 
 <hr>
