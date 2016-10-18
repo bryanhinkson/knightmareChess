@@ -395,7 +395,14 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
                 return;
             }
         }, 10000);
-    };
+    }
+    
+    vm.boardRotated = false;
+    vm.rotateBoard = function(){
+        vm.boardRotated = !vm.boardRotated;
+        document.getElementById("whiteFacingBoard").remove();
+        vm.populateJsonBoard(vm.boardConfig);
+    }
 
 
 });

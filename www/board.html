@@ -9,11 +9,21 @@
 
 <br>
 
-<div class="board">
+<div id="whiteFacingBoard" class="board" ng-show="!board.boardRotated">
 	<div class="" ng-repeat="rank in board.ranks">
 		<div class="row">
 			<div class="" ng-repeat="file in board.files">
 				<div id="{{file}}{{8-$parent.$index}}" ng-click="board.select($event);" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="blackFacingBoard" class="board" ng-show="board.boardRotated">
+	<div class="" ng-repeat="rank in board.ranks">
+		<div class="row">
+			<div class="" ng-repeat="file in board.files | orderBy:'':true">
+				<div id="{{file}}{{1+$parent.$index}}" ng-click="board.select($event);" ng-class="{'white': ($index + $parent.$index) % 2 == 0, 'black': ($index + $parent.$index) % 2 != 0}"></div>
 			</div>
 		</div>
 	</div>
@@ -53,6 +63,7 @@
 </div>
 
 <hr>
+<button ng-hide="board.boardRotated" ng-click="board.rotateBoard()">Rotate Board</button>
 
 <div ng-show="board.showPiecePallet">
 	<div class="palletContainer">
