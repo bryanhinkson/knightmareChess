@@ -50,18 +50,22 @@
             </button>
 </div>
 
-<div ng-show="board.showGameMenu" class="row">
-	<hr>
-	<button class="btn btn-sm btn-success col-xs-3 boardButton" ng-click="board.saveCurrentConfig();">Save Board</button>
+<div ng-show="board.showGameMenu">
+	<div class="row">
+		<hr>
+		<button class="btn btn-sm btn-success col-xs-3 boardButton" ng-click="board.saveCurrentConfig();">Save Board</button>
 
-	<select class="col-xs-3 col-xs-offset-1 dropdown" ng-model="board.LoadThisBoardConfig">
+		<select class="col-xs-3 col-xs-offset-1 dropdown" ng-model="board.LoadThisBoardConfig">
 		<option ng-repeat="config in board.savedConfigs" value="{{config}}">{{config.name}}</option>
 	</select>
-	<button class="btn btn-sm btn-warning col-xs-2 boardButton" ng-click="board.loadBoardConfig();">Load</button>
+		<button class="btn btn-sm btn-warning col-xs-2 boardButton" ng-click="board.loadBoardConfig();">Load</button>
 
-	<button class="btn btn-sm btn-danger col-xs-2  col-xs-offset-1 boardButton" ng-show="board.gameStarted" ng-click="board.resetGame();">Reset</button>
-
-	<button class="btn btn-sm btn-primary col-xs-2 boardButton" ng-click="board.rotateBoard()">Rotate Board</button>
+		<button class="btn btn-sm btn-danger col-xs-2  col-xs-offset-1 boardButton" ng-show="board.gameStarted" ng-click="board.resetGame();">Reset</button>
+	</div>
+	<br>
+	<div class="row">
+		<button class="btn btn-sm btn-primary col-xs-3 boardButton" ng-click="board.rotateBoard()">Rotate Board</button>
+	</div>
 </div>
 
 <hr>
