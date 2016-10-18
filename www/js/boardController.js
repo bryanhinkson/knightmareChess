@@ -292,14 +292,23 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
 
     vm.clearBoard = function () {
         for (var i = 1; i <= 8; i++) {
-            document.getElementById('A' + i).innerHTML = "";
-            document.getElementById('B' + i).innerHTML = "";
-            document.getElementById('C' + i).innerHTML = "";
-            document.getElementById('D' + i).innerHTML = "";
-            document.getElementById('E' + i).innerHTML = "";
-            document.getElementById('F' + i).innerHTML = "";
-            document.getElementById('G' + i).innerHTML = "";
-            document.getElementById('H' + i).innerHTML = "";
+            document.getElementsByClassName('A' + i)[0].innerHTML = "";
+            document.getElementsByClassName('B' + i)[0].innerHTML = "";
+            document.getElementsByClassName('C' + i)[0].innerHTML = "";
+            document.getElementsByClassName('D' + i)[0].innerHTML = "";
+            document.getElementsByClassName('E' + i)[0].innerHTML = "";
+            document.getElementsByClassName('F' + i)[0].innerHTML = "";
+            document.getElementsByClassName('G' + i)[0].innerHTML = "";
+            document.getElementsByClassName('H' + i)[0].innerHTML = "";
+
+            document.getElementsByClassName('A' + i)[1].innerHTML = "";
+            document.getElementsByClassName('B' + i)[1].innerHTML = "";
+            document.getElementsByClassName('C' + i)[1].innerHTML = "";
+            document.getElementsByClassName('D' + i)[1].innerHTML = "";
+            document.getElementsByClassName('E' + i)[1].innerHTML = "";
+            document.getElementsByClassName('F' + i)[1].innerHTML = "";
+            document.getElementsByClassName('G' + i)[1].innerHTML = "";
+            document.getElementsByClassName('H' + i)[1].innerHTML = "";
         }
     }
 
@@ -310,8 +319,11 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         //if something in the divs then it is a piece so we need to record it
         for (var i = 1; i <= 8; i++) {
             for (var j = 0; j < 8; j++) {
-                if (document.getElementById(vm.files[j] + i).innerHTML) {
-                    vm.boardConfig[vm.files[j] + i] = document.getElementById(vm.files[j] + i).firstChild.getAttribute('type');
+                if (document.getElementsByClassName(vm.files[j] + i)[0].innerHTML && !vm.boardRotated) {
+                    vm.boardConfig[vm.files[j] + i] = document.getElementsByClassName(vm.files[j] + i)[0].firstChild.getAttribute('type');
+                }
+                else if (document.getElementsByClassName(vm.files[j] + i)[1].innerHTML && vm.boardRotated) {
+                    vm.boardConfig[vm.files[j] + i] = document.getElementsByClassName(vm.files[j] + i)[1].firstChild.getAttribute('type');
                 }
             }
         }
@@ -321,7 +333,8 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
         vm.clearBoard();
         for (var square in boardConfig) {
             var pieceType = boardConfig[square];
-            document.getElementById(square).innerHTML = '<img type="' + pieceType + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
+            document.getElementsByClassName(square)[0].innerHTML = '<img type="' + pieceType + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
+            document.getElementsByClassName(square)[1].innerHTML = '<img type="' + pieceType + '" class="chessPiece" src="img/' + vm.pieceMap[pieceType] + '">';
         }
     }
 
@@ -400,7 +413,6 @@ app.controller('boardController', function ($route, $routeParams, $location, $ht
     vm.boardRotated = false;
     vm.rotateBoard = function(){
         vm.boardRotated = !vm.boardRotated;
-        document.getElementById("whiteFacingBoard").remove();
         vm.populateJsonBoard(vm.boardConfig);
     }
 
